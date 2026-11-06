@@ -9,6 +9,8 @@ export interface Ingredient {
   aisle: Aisle
   /** true for things most kitchens already have once you've stocked the pantry */
   pantry?: boolean
+  /** fraction actually eaten (pasta-water salt, frying oil); defaults to 1 */
+  eaten?: number
 }
 
 export interface Step {
@@ -47,4 +49,8 @@ export interface Recipe {
   variations: { name: string; how: string }[]
   milestone?: boolean
   timeline?: TimelineItem[]
+  /** world cuisine branch id; absent for the core path */
+  cuisine?: string
+  /** extra diet tags not derivable from ingredients */
+  tags?: string[]
 }

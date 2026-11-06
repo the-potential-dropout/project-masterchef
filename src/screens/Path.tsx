@@ -1,5 +1,6 @@
 import { recipes } from '../data/recipes'
-import { timesCooked, useStore } from '../lib/store'
+import { streak, timesCooked, today, useStore } from '../lib/store'
+import { nextLesson } from './Learn'
 import { formatMinutes } from '../lib/format'
 
 function Pips({ n }: { n: number }) {
@@ -16,6 +17,9 @@ export function Path({ go }: { go: (to: string) => void }) {
   const learned = recipes.filter((r) => timesCooked(state, r.id) >= 2).length
   const next = recipes.find((r) => timesCooked(state, r.id) < 2) ?? recipes[recipes.length - 1]
   const nextCount = timesCooked(state, next.id)
+  const lesson = nextLesson(state)
+  const st = streak(state)
+  const xp = state.xpDays[today()] ?? 0
 
   return (
     <>
@@ -55,6 +59,22 @@ export function Path({ go }: { go: (to: string) => void }) {
         </div>
       </section>
 
+      {lesson && (
+        <button className="learn-strip" onClick={() => go(`/lesson/${lesson.lesson.id}`)}>
+          <span className="ls-streak" aria-label={`${st} day streak`}>
+            <strong>{st}</strong>
+            <span>day{st === 1 ? '' : 's'}</span>
+          </span>
+          <span className="ls-body">
+            <span className="muted small">{xp >= state.dailyGoal ? 'Daily goal done. One more?' : `Today’s lesson, ${xp}/${state.dailyGoal} XP`}</span>
+            <strong>{lesson.lesson.title}</strong>
+            <span className="muted small">{lesson.branch.title}</span>
+          </span>
+          <span className="ls-go" aria-hidden="true">▶</span>
+        </button>
+      )}
+
+      <h2 className="section-h">Your path</h2>
       <ol className="path">
         {recipes.map((r) => {
           const n = timesCooked(state, r.id)
@@ -75,6 +95,11 @@ export function Path({ go }: { go: (to: string) => void }) {
         })}
       </ol>
       <p className="footnote">Two dots fill in as you cook each dish. One new dish a week is a good pace.</p>
+      <a className="world-teaser" href="#/learn">
+        <strong>Then travel the world</strong>
+        <span>Italian, Chinese, Mexican, Indian, Japanese, Levantine, West African, American, Brazilian, Thai and Korean branches, 33 more dishes.</span>
+        <span className="glyph-row" aria-hidden="true">🍝🥢🌮🍛🍱🧆🍲🍔🔥🌶️🥬</span>
+      </a>
     </>
   )
 }

@@ -2,13 +2,14 @@
   "name": "project-masterchef",
   "private": true,
   "version": "1.0.0",
-  "description": "Learn to cook from zero. Six dishes, six techniques, one dinner party, zero fire department visits (goal).",
+  "description": "Learn to cook from zero: Duolingo-style lessons, 39 recipes from 11 cuisines, a grocery budget, and a health coach. Zero fire department visits (goal).",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "tsx scripts/check-facts.ts && tsx scripts/check-lessons.ts"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -20,6 +21,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.90.0",
+    "tsx": "^4.23.15",
     "typescript": "~7.0.2",
     "vite": "^8.3.6"
   }

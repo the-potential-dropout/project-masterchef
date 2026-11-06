@@ -165,7 +165,7 @@ export const recipes: Recipe[] = [
       { qty: 1, unit: 'cup', item: 'water or broth', aisle: 'Pantry' },
       { qty: 1.5, unit: 'tsp', item: 'kosher salt', note: 'plus more to taste', aisle: 'Spices', pantry: true },
       { qty: 1, item: 'lime', aisle: 'Produce' },
-      { item: 'toppings', note: 'sour cream, cheddar, green onion, avocado', aisle: 'Dairy' },
+      { item: 'toppings of your choice', note: 'sour cream, cheddar, green onion, avocado', aisle: 'Dairy' },
     ],
     equipment: ['Large heavy pot or Dutch oven', 'Wooden spoon', 'Chef’s knife and board'],
     steps: [
@@ -317,7 +317,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     ingredients: [
       { qty: 8, unit: 'oz', item: 'spaghetti or linguine', note: '225 g', aisle: 'Pantry', pantry: true },
-      { qty: 1, unit: 'tbsp', item: 'kosher salt', note: 'for the pasta water', aisle: 'Spices', pantry: true },
+      { qty: 1, unit: 'tbsp', item: 'kosher salt', note: 'for the pasta water', aisle: 'Spices', pantry: true, eaten: 0.1 },
       { qty: 3, unit: 'tbsp', item: 'olive oil', aisle: 'Pantry', pantry: true },
       { qty: 4, item: 'garlic cloves', note: 'thinly sliced', aisle: 'Produce', pantry: true },
       { qty: 0.25, unit: 'tsp', item: 'red pepper flakes', aisle: 'Spices' },

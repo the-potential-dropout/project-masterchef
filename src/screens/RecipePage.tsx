@@ -2,7 +2,11 @@ import { useState } from 'react'
 import type { Recipe } from '../data/types'
 import { timesCooked, useStore } from '../lib/store'
 import { formatMinutes, formatQty, formatTimer } from '../lib/format'
-import { ingredientLine, addRecipeToGroceries } from '../lib/groceries'
+import { ingredientLine, addRecipeToGroceries, removeRecipeFromGroceries, money } from '../lib/groceries'
+import { recipeFacts } from '../lib/nutrition'
+import { screenRecipe, targets } from '../lib/health'
+import { cuisineName } from '../data'
+import { NutritionPanel } from '../components/NutritionPanel'
 
 export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string) => void }) {
   const [state, update] = useStore()
@@ -10,18 +14,22 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
   const scale = servings / r.servings
   const n = timesCooked(state, r.id)
   const logs = state.logs[r.id] ?? []
-  const inList = state.groceries.some((g) => g.from.includes(r.id))
+  const inList = state.groceries.some((g) => r.id in g.parts)
   const [logging, setLogging] = useState(false)
+  const facts = recipeFacts(r, state.prices)
+  const t = state.profile ? targets(state.profile) : null
+  const flags = state.profile && t ? screenRecipe(r, facts.perServing, state.profile, t) : []
+  const planned = state.plan.some((p) => p.kind === 'recipe' && p.id === r.id)
 
   const setServings = (v: number) =>
     update((s) => ({ ...s, servings: { ...s.servings, [r.id]: Math.max(1, Math.min(12, v)) } }))
 
   return (
     <article className="recipe">
-      <a className="back" href="#/">
-        ← Path
+      <a className="back" href={r.cuisine ? '#/recipes' : '#/'}>
+        ← {r.cuisine ? 'Recipes' : 'Path'}
       </a>
-      <p className="skill">{r.milestone ? 'Milestone: ' : `Dish ${r.order}: `}{r.skill}</p>
+      <p className="skill">{r.cuisine ? `${cuisineName(r.cuisine)}: ` : r.milestone ? 'Milestone: ' : `Dish ${r.order}: `}{r.skill}</p>
       <h1>{r.title}</h1>
       <p className="lede">{r.short}</p>
 
@@ -48,6 +56,37 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
         </div>
       </dl>
 
+      {flags.length > 0 && (
+        <ul className="flags" aria-label="Notes for your profile">
+          {flags.map((f) => (
+            <li key={f.text} className={`flag ${f.level}`}>{f.text}</li>
+          ))}
+        </ul>
+      )}
+
+      <section>
+        <div className="h-row">
+          <h2>Per serving</h2>
+          <span className="cost-pill">{money(facts.perServingCost)} a serving</span>
+        </div>
+        <NutritionPanel m={facts.perServing} t={t} />
+        <p className="muted small">
+          About {money(facts.perServingCost * servings)} for {servings} serving{servings > 1 ? 's' : ''}, counting only what the recipe uses. Estimates from typical values;{' '}
+          <a href="#/prices">edit prices</a>.
+        </p>
+        <button
+          className="btn ghost small"
+          onClick={() =>
+            update((s) => ({
+              ...s,
+              plan: planned ? s.plan.filter((p) => !(p.kind === 'recipe' && p.id === r.id)) : [...s.plan, { kind: 'recipe', id: r.id, servings: 1 }],
+            }))
+          }
+        >
+          {planned ? 'Remove from today’s plan' : 'Add a serving to today’s plan'}
+        </button>
+      </section>
+
       <section className="why">
         <h2>What this teaches you</h2>
         <p>{r.why}</p>
@@ -70,13 +109,20 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
       <section>
         <div className="h-row">
           <h2>Ingredients</h2>
-          <button className="btn ghost small" onClick={() => addRecipeToGroceries(r, scale)}>
-            {inList ? 'Update groceries' : 'Add to groceries'}
-          </button>
+          <div className="row">
+            {inList && (
+              <button className="btn ghost small" onClick={() => removeRecipeFromGroceries(r.id)}>
+                Remove
+              </button>
+            )}
+            <button className="btn ghost small" onClick={() => addRecipeToGroceries(r, scale)}>
+              {inList ? 'Update groceries' : 'Add to groceries'}
+            </button>
+          </div>
         </div>
         <ul className="ingredients">
-          {r.ingredients.map((i) => (
-            <li key={i.item}>
+          {r.ingredients.map((i, k) => (
+            <li key={k}>
               <span className="qty">{i.qty !== undefined ? formatQty(i.qty * scale) : ''}</span>
               <span>
                 {ingredientLine(i, scale, false)}

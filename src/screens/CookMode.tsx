@@ -78,8 +78,8 @@ export function CookMode({ recipe: r, go }: { recipe: Recipe; go: (to: string) =
 
       {showIngredients && (
         <ul className="cook-ingredients">
-          {r.ingredients.map((x) => (
-            <li key={x.item}>
+          {r.ingredients.map((x, k) => (
+            <li key={k}>
               {ingredientLine(x, scale)}
               {x.note && <span className="note">, {x.note}</span>}
             </li>
