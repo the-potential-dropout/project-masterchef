@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
-import { allRecipes, cuisineGlyph, cuisineName } from '../data'
+import { allRecipes, cuisineName } from '../data'
 import { cuisineSpecs } from '../data/cuisines'
 import { recipeFacts } from '../lib/nutrition'
 import { dietOk, screenRecipe, targets } from '../lib/health'
 import { money } from '../lib/groceries'
 import { useStore } from '../lib/store'
 import { formatMinutes } from '../lib/format'
+import { DishPhoto } from '../components/Art'
 
 type Sort = 'path' | 'cost' | 'protein' | 'kcal' | 'time'
 
@@ -76,7 +77,7 @@ export function Recipes({ go }: { go: (to: string) => void }) {
         {shown.map(({ r, f, flags, ok }) => (
           <li key={r.id}>
             <button className={`recipe-row ${ok ? '' : 'nofit'}`} onClick={() => go(`/recipe/${r.id}`)}>
-              <span className="rr-glyph" aria-hidden="true">{cuisineGlyph(r.cuisine)}</span>
+              <DishPhoto recipe={r} size="thumb" />
               <span className="rr-body">
                 <span className="rr-cuisine">{cuisineName(r.cuisine)}</span>
                 <span className="rr-title">{r.title}</span>

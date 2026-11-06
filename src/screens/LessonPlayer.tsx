@@ -3,6 +3,8 @@ import { findLesson, getRecipe } from '../data'
 import type { Question } from '../data/courseTypes'
 import { shuffle } from '../lib/generate'
 import { today, update } from '../lib/store'
+import { Mascot } from '../components/Mascot'
+import { Confetti, DishPhoto } from '../components/Art'
 
 /** A question prepared for play: options shuffled, answer key remembered. */
 type Played =
@@ -111,6 +113,7 @@ export function LessonPlayer({ id, go }: { id: string; go: (to: string) => void 
         <div className="lesson-body">
           <p className="lesson-kicker">{branch.title} · {lesson.title}</p>
           <div className="teach-card" key={card}>
+            {recipe && card === 0 ? <DishPhoto recipe={recipe} size="card" /> : <Mascot className="teach-mascot" size={64} mood={card === lesson.teach.length - 1 ? 'happy' : 'think'} />}
             <h1>{lesson.teach[card][0]}</h1>
             <p>{lesson.teach[card][1]}</p>
           </div>
@@ -130,7 +133,10 @@ export function LessonPlayer({ id, go }: { id: string; go: (to: string) => void 
           <QuestionView key={`${current.key}-${queue.length}`} p={current} locked={result !== null} onAnswer={onAnswer} />
           {result !== null && (
             <div className={`feedback ${result ? 'good' : 'bad'}`} role="status">
-              <strong>{result ? pickPraise() : 'Not quite.'}</strong>
+              <div className="fb-head">
+                <Mascot size={52} mood={result ? 'cheer' : 'sad'} className="fb-mascot" />
+                <strong>{result ? pickPraise() : 'Not quite.'}</strong>
+              </div>
               {!result && <p>Answer: {rightAnswer(current)}</p>}
               {current.why && <p>{current.why}</p>}
               <button className="btn big" onClick={onContinue} autoFocus>Continue</button>
@@ -141,7 +147,8 @@ export function LessonPlayer({ id, go }: { id: string; go: (to: string) => void 
 
       {phase === 'done' && (
         <div className="lesson-body done">
-          <p className="done-burst" aria-hidden="true">{missed.size === 0 ? '🏆' : '✅'}</p>
+          <Confetti />
+          <Mascot size={130} mood="cheer" className="done-mascot" label="Yolky cheering" />
           <h1>Lesson complete</h1>
           <div className="done-stats">
             <div><strong>+{earned}</strong><span>XP</span></div>

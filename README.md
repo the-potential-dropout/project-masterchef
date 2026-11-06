@@ -30,14 +30,14 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 ### 🦉 Learn (Duolingo, but the owl is a chicken thigh)
 - **Kitchen Foundations course:** knives, pans and stove settings, oils and fats (smoke points, health pros and cons), measuring, meat temperatures and times, food safety, seasoning, nutrition basics. 
 - **11 world cuisine branches:** Italian, Chinese, Mexican, Indian, Japanese, Arabic/Levantine, West African, American, Brazilian churrasco, Thai and Korean. Each one teaches the pantry, the key techniques and three signature dishes.
-- **83 lessons** of multiple choice, put-the-steps-in-order, matching and "type the temperature" questions. Recipe-memory lessons are generated fresh from the recipe data every time, so you can't just memorise that the answer is B.
+- **128 lessons** of multiple choice, put-the-steps-in-order, matching and "type the temperature" questions. Recipe-memory lessons are generated fresh from the recipe data every time, so you can't just memorise that the answer is B.
 - Get it wrong and it comes back at the end, like an ex who "just wants to talk."
 - XP, a daily goal and a streak, so you feel guilty in a healthy, motivating way.
 - **Cheat sheets** for temperatures, cooking times, oils, tools, conversions and food safety.
 
 ### 🍳 Cook
 - **The Path:** the six starter dishes in order, with progress dots so you can watch yourself become a functional adult in real time.
-- **39 recipes**, each with what it teaches, troubleshooting ("if it goes wrong", because it will) and variations.
+- **70 recipes**, each with what it teaches, troubleshooting ("if it goes wrong", because it will) and variations.
 - **Cook mode:** one step at a time, in letters big enough to read while holding raw chicken. Keeps your screen awake, and runs **stacking timers** so the rice keeps counting while you chop.
 - **Cook log:** rate each attempt and leave notes for future you ("NEEDED SALT. ALWAYS NEEDS SALT.").
 
@@ -52,6 +52,15 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 - **Day builder:** stack meals and snacks, see how the day adds up, and get suggestions for filling protein or fibre gaps.
 - **Supplements and vitamins** tailored to your profile (vitamin D in Canadian winters, B12 for vegans, folic acid, omega-3 and so on), each with "food first", amounts and cautions.
 - General info, not medical advice. Your doctor outranks this app. So does your pharmacist. Honestly, so does your mom.
+
+### 🍹 Through the day
+- **Breakfast**, **soups, bisques and chowders**, **snacks**, **desserts and baking**, **smoothies and juices**, **coffee, tea and cocoa**, and **cocktails** (with mocktail versions), each with its own Learn branch. 70 recipes in total.
+
+### 🎨 Pretty things
+- **Real dish photos** from Wikimedia Commons, credited on a Credits page (thank you, photographers).
+- **Yolky**, an original egg in a chef's hat who bobs, blinks, cheers when you're right and wobbles sadly when you're not. He is doing his best. So are you.
+- Food confetti when you finish a lesson or a dish, steam rising off hot soups, a countdown ring on cook-mode timers.
+- Charts: where each recipe's calories come from, today's macro split against your target, and where your grocery money goes.
 
 ### 📱 And
 - Installable on your phone, works offline, dark mode for midnight pasta.

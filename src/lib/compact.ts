@@ -12,7 +12,7 @@ import type { Ingredient, Recipe, Step } from '../data/types'
  */
 const UNITS = [
   'tsp', 'tbsp', 'cups', 'cup', 'ml', 'l', 'g', 'kg', 'lb', 'oz', 'pinch', 'pinches', 'cans', 'can',
-  'bunch', 'bunches', 'head', 'heads', 'slices', 'slice', 'sprigs', 'sprig', 'handful', 'handfuls', 'pint', 'stalks', 'stalk', 'sheets', 'sheet', 'pieces', 'piece',
+  'bunch', 'bunches', 'head', 'heads', 'slices', 'slice', 'sprigs', 'sprig', 'handful', 'handfuls', 'pint', 'stalks', 'stalk', 'sheets', 'sheet', 'pieces', 'piece', 'dashes', 'dash',
 ]
 
 function parseQty(s: string): number | undefined {

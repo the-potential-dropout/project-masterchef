@@ -1,8 +1,9 @@
 import { recipes } from '../src/data/recipes'
 import { world1 } from '../src/data/world1'
 import { world2 } from '../src/data/world2'
+import { world3 } from '../src/data/world3'
 import { recipeFacts, resolvedLines } from '../src/lib/nutrition'
-const all = [...recipes, ...world1, ...world2]
+const all = [...recipes, ...world1, ...world2, ...world3]
 let bad = 0
 for (const r of all) {
   const f = recipeFacts(r)

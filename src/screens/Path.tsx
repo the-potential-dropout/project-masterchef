@@ -2,6 +2,9 @@ import { recipes } from '../data/recipes'
 import { streak, timesCooked, today, useStore } from '../lib/store'
 import { nextLesson } from './Learn'
 import { formatMinutes } from '../lib/format'
+import { Mascot } from '../components/Mascot'
+import { DishPhoto } from '../components/Art'
+import { photoUrl } from '../data/photos'
 
 function Pips({ n }: { n: number }) {
   return (
@@ -24,6 +27,7 @@ export function Path({ go }: { go: (to: string) => void }) {
   return (
     <>
       <header className="hero">
+        <Mascot className="hero-mascot" mood={learned >= 6 ? 'cheer' : 'happy'} size={60} label="Yolky, your kitchen buddy" />
         <h1 className="wordmark">
           Project
           <br />
@@ -46,6 +50,7 @@ export function Path({ go }: { go: (to: string) => void }) {
       </header>
 
       <section className="next" aria-labelledby="next-h">
+        <DishPhoto recipe={next} size="card" />
         <p className="next-kicker" id="next-h">
           {nextCount === 0 ? 'Up next' : 'Cook it again to lock it in'}
         </p>
@@ -81,8 +86,8 @@ export function Path({ go }: { go: (to: string) => void }) {
           return (
             <li key={r.id} className={`stop ${r.milestone ? 'milestone' : ''} ${n >= 2 ? 'learned' : ''}`}>
               <a href={`#/recipe/${r.id}`}>
-                <span className="num" aria-hidden="true">
-                  {r.milestone ? '★' : r.order}
+                <span className="num" aria-hidden="true" style={photoUrl(r.id, 120) ? { backgroundImage: `url("${photoUrl(r.id, 120)}")` } : undefined}>
+                  <b>{r.milestone ? '★' : r.order}</b>
                 </span>
                 <span className="stop-body">
                   <span className="skill">{r.skill}</span>

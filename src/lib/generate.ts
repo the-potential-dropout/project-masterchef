@@ -89,7 +89,7 @@ export function recipeDrill(r: Recipe, all: Recipe[]): Question[] {
   // steps in order
   const stepTitles = r.steps.map((s) => s.title)
   const start = Math.max(0, Math.floor(Math.random() * Math.max(1, stepTitles.length - 4)))
-  qs.push(order(`Put the steps for ${r.title.toLowerCase()} in order`, stepTitles.slice(start, start + 5)))
+  if (stepTitles.length >= 3) qs.push(order(`Put the steps for ${r.title.toLowerCase()} in order`, stepTitles.slice(start, start + 5)))
 
   // which ingredient belongs
   const seen = new Set<string>()

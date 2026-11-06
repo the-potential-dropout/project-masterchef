@@ -26,6 +26,7 @@ export function Reference() {
     <>
       <a className="back" href="#/learn">← Learn</a>
       <h1 className="page-title">Cheat sheets</h1>
+      <p className="muted small"><a href="#/credits">Photo credits</a></p>
       <div className="seg-tabs" role="tablist">
         {TABS.map((t) => (
           <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? 'on' : ''} onClick={() => pick(t)}>{t}</button>

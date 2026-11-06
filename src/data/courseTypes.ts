@@ -25,6 +25,7 @@ export interface Unit {
 }
 
 export interface Branch {
+  group?: 'world' | 'day'
   id: string
   title: string
   glyph: string

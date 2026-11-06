@@ -1,6 +1,7 @@
 import { recipes as core } from './recipes'
 import { world1 } from './world1'
 import { world2 } from './world2'
+import { world3 } from './world3'
 import { foundations } from './foundations'
 import { buildCuisineBranches, cuisineSpecs } from './cuisines'
 import type { Branch, Lesson, Unit } from './courseTypes'
@@ -8,7 +9,7 @@ import type { Recipe } from './types'
 import { recipeDrill } from '../lib/generate'
 
 export const coreRecipes = core
-export const worldRecipes: Recipe[] = [...world1, ...world2]
+export const worldRecipes: Recipe[] = [...world1, ...world2, ...world3]
 export const allRecipes: Recipe[] = [...core, ...worldRecipes]
 const byId = new Map(allRecipes.map((r) => [r.id, r]))
 export const getRecipe = (id: string) => byId.get(id)

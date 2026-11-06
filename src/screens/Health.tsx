@@ -9,6 +9,8 @@ import { addMacros, recipeFacts, zeroMacros, type Macros } from '../lib/nutritio
 import { useStore, type PlanEntry } from '../lib/store'
 import { NutritionPanel } from '../components/NutritionPanel'
 import { money } from '../lib/groceries'
+import { MacroBar } from '../components/Charts'
+import { Mascot } from '../components/Mascot'
 
 function ProfileForm({ initial, onSave, onCancel }: { initial: Profile; onSave: (p: Profile) => void; onCancel?: () => void }) {
   const [p, setP] = useState<Profile>(initial)
@@ -223,6 +225,7 @@ export function Health({ go }: { go: (to: string) => void }) {
     return (
       <>
         <h1 className="page-title">Health</h1>
+        <Mascot size={84} mood="happy" className="health-mascot" />
         <p className="lede">
           {p ? 'Update your profile.' : 'Tell the app a little about you and it will set daily targets, check every recipe against your diet and conditions, and suggest supplements worth asking about.'}
         </p>
@@ -302,6 +305,10 @@ export function Health({ go }: { go: (to: string) => void }) {
         </div>
         {planRows.length > 0 && (
           <>
+            <div className="split-compare">
+              <MacroBar m={total} label="Today’s calorie split" />
+              <MacroBar m={{ protein: t!.protein, fat: t!.fat, carbs: t!.carbs }} label="Your target split" />
+            </div>
             <NutritionPanel m={total} t={t} of="of target" />
             <div className="suggest">
               {suggestions(total, t!, p).map((sg) => (

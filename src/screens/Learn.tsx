@@ -1,6 +1,8 @@
 import { allBranches, branches, trunk, BRANCH_UNLOCK_UNITS } from '../data'
 import type { Branch, Unit } from '../data/courseTypes'
 import { streak, today, totalXp, useStore, type AppState } from '../lib/store'
+import { Mascot } from '../components/Mascot'
+import { photoUrl } from '../data/photos'
 
 export function unitDone(u: Unit, s: AppState) {
   return u.lessons.every((l) => s.lessons[l.id])
@@ -19,6 +21,7 @@ function XpBar({ s }: { s: AppState }) {
   const st = streak(s)
   return (
     <div className="xpbar">
+      <Mascot className="xp-mascot" size={56} mood={xp >= s.dailyGoal ? 'cheer' : st > 0 ? 'happy' : 'sleep'} />
       <div className="xp-stats">
         <span>
           <strong>{st}</strong> day streak {st > 0 ? '🔥' : ''}
@@ -106,27 +109,40 @@ export function Learn({ branchId, go }: { branchId?: string; go: (to: string) =>
         <UnitPath key={u.id} unit={u} s={s} go={go} locked={i > 0 && !unitDone(trunk.units[i - 1], s)} />
       ))}
 
-      <h2 className="section-h">🌍 World kitchens</h2>
-      <p className="muted">
-        {open ? 'Each branch teaches a cuisine’s pantry, techniques and signature dishes.' : `Finish the first ${BRANCH_UNLOCK_UNITS} Foundations units to unlock these. You can peek inside any time.`}
+      <BranchGrid title="🌍 World kitchens" list={branches.filter((b) => b.group !== 'day')} s={s} open={open} intro={open ? 'Each branch teaches a cuisine’s pantry, techniques and signature dishes.' : `Finish the first ${BRANCH_UNLOCK_UNITS} Foundations units to unlock these. You can peek inside any time.`} />
+      <BranchGrid title="🕘 Through the day" list={branches.filter((b) => b.group === 'day')} s={s} open={open} intro="Breakfasts, soups, snacks, desserts, smoothies, café drinks and cocktails." />
+      <p className="ref-link">
+        <a href="#/reference">Open the cheat sheets</a>: temperatures, oils, tools, cooking times and food safety.
       </p>
+    </>
+  )
+}
+
+function BranchGrid({ title, list, s, open, intro }: { title: string; list: Branch[]; s: AppState; open: boolean; intro: string }) {
+  return (
+    <>
+      <h2 className="section-h">{title}</h2>
+      <p className="muted">{intro}</p>
       <div className="branch-grid">
-        {branches.map((b) => {
+        {list.map((b) => {
           const lessons = b.units.flatMap((u) => u.lessons)
           const done = lessons.filter((l) => s.lessons[l.id]).length
+          const cover = lessons.find((l) => l.recipeId)?.recipeId
+          const img = cover ? photoUrl(cover, 360) : undefined
           return (
             <a key={b.id} href={`#/learn/${b.id}`} className={`branch ${open ? '' : 'dim'}`}>
-              <span className="branch-glyph" aria-hidden="true">{b.glyph}</span>
-              <strong>{b.title}</strong>
-              <span className="muted small">{done}/{lessons.length} lessons</span>
-              <span className="mini-bar"><span style={{ width: `${(done / lessons.length) * 100}%` }} /></span>
+              <span className="branch-cover" style={img ? { backgroundImage: `url("${img}")` } : undefined}>
+                <span className="branch-glyph" aria-hidden="true">{b.glyph}</span>
+              </span>
+              <span className="branch-text">
+                <strong>{b.title}</strong>
+                <span className="muted small">{done}/{lessons.length} lessons</span>
+                <span className="mini-bar"><span style={{ width: `${(done / lessons.length) * 100}%` }} /></span>
+              </span>
             </a>
           )
         })}
       </div>
-      <p className="ref-link">
-        <a href="#/reference">Open the cheat sheets</a>: temperatures, oils, tools, cooking times and food safety.
-      </p>
     </>
   )
 }

@@ -1,8 +1,10 @@
-import { mc, tf, match, type Branch, type Lesson, type Question } from './courseTypes'
+import { mc, tf, match, num, order, type Branch, type Lesson, type Question } from './courseTypes'
 import type { Recipe } from './types'
 import { recipeDrill } from '../lib/generate'
 
 interface CuisineSpec {
+  /** 'world' cuisines vs 'day' branches (breakfast, soups, drinks...) */
+  group?: 'world' | 'day'
   id: string
   title: string
   glyph: string
@@ -292,7 +294,179 @@ export const cuisineSpecs: CuisineSpec[] = [
       mc('Best rice for fried rice?', 'Cold, day-old rice', ['Freshly cooked hot rice', 'Uncooked rice', 'Sticky rice']),
     ],
   },
+  // ───────────── through the day ─────────────
+  {
+    group: 'day', id: 'breakfast', title: 'Breakfast', glyph: '🍳', blurb: 'Fast, filling mornings, from make-ahead oats to brunch for friends.',
+    pantry: [
+      ['The core', 'Eggs, oats, milk or yogurt, bread, fruit, maple syrup, butter, cinnamon and vanilla.'],
+      ['Protein in the morning', 'Eggs, Greek yogurt and nut butters keep you full until lunch far better than a pastry.'],
+      ['Make ahead', 'Overnight oats, boiled eggs and chopped fruit turn a rushed morning into a 2-minute breakfast.'],
+    ],
+    pantryQs: [
+      mc('Which breakfast keeps you fullest?', 'Greek yogurt with oats and fruit', ['A croissant', 'Orange juice alone', 'A sugary cereal']),
+      mc('Best bread for French toast?', 'Thick, day-old brioche or challah', ['Fresh thin sandwich bread', 'Crackers', 'Pita']),
+      mc('How long do overnight oats keep in the fridge?', 'About 4 days', ['2 hours', '2 weeks', 'They must be eaten immediately']),
+      tf('Shakshuka eggs are poached right in the tomato sauce.', true),
+    ],
+    technique: [
+      ['Egg timing', 'Into boiling water: 6–7 minutes for jammy, 10–12 for hard. Then straight into ice water.'],
+      ['Medium heat', 'French toast and pancakes need medium heat so the inside cooks before the outside burns.'],
+      ['Cover to set', 'A lid traps steam, which sets the tops of eggs in shakshuka or frittata.'],
+    ],
+    techniqueQs: [
+      num('Minutes in boiling water for a jammy egg (from the fridge)?', 6.5, 'min', 0.5),
+      mc('Why plunge boiled eggs into ice water?', 'It stops the cooking and makes them easier to peel', ['To make them shiny', 'To add salt', 'To kill bacteria']),
+      mc('French toast is burnt outside and soggy inside. What went wrong?', 'The heat was too high', ['Too much cinnamon', 'Not enough syrup', 'The bread was stale']),
+    ],
+  },
+  {
+    group: 'day', id: 'soups', title: 'Soups, bisques and chowders', glyph: '🥣', blurb: 'Brothy, puréed and creamy: the three soup families.',
+    pantry: [
+      ['Brothy soups', 'Clear broth with pieces in it, like chicken noodle or minestrone.'],
+      ['Puréed soups', 'Cooked vegetables blended smooth, like butternut squash or tomato soup.'],
+      ['Bisques', 'Smooth, rich French soups traditionally made from shellfish shells, thickened with rice or roux and finished with cream.'],
+      ['Chowders', 'Chunky, creamy soups thickened with potatoes and often a little flour, like clam or corn chowder.'],
+    ],
+    pantryQs: [
+      match('Match the soup to its family', [['Chicken noodle', 'Brothy'], ['Butternut squash', 'Puréed'], ['Lobster bisque', 'Bisque'], ['Clam chowder', 'Chowder']]),
+      mc('A bisque gets its deep flavour from…', 'Shellfish shells simmered into stock', ['Lots of cheese', 'Bacon', 'Curry paste']),
+      mc('What thickens a chowder?', 'Potatoes and a little flour', ['Gelatin', 'Eggs', 'Nothing, it is thin']),
+      tf('French onion soup needs 45–60 minutes to properly caramelise the onions.', true, 'Rushing on high heat burns them instead.'),
+    ],
+    technique: [
+      ['Start with aromatics', 'Almost every soup begins with onion (plus carrot and celery) softened in fat.'],
+      ['Simmer, don’t boil', 'Gentle bubbles keep meat tender and broth clear.'],
+      ['Blend safely', 'Fill a blender only halfway with hot soup, vent the lid and cover with a towel. Or use a stick blender in the pot.'],
+      ['Cream and seafood go in last', 'Boiling cream can split, and clams and shrimp turn rubbery.'],
+    ],
+    techniqueQs: [
+      mc('How full should a blender be with hot soup?', 'About half full, lid vented', ['Completely full', 'Three-quarters, lid sealed tight', 'It does not matter']),
+      mc('When do clams go into a chowder?', 'At the end, just to heat through', ['At the start', 'Halfway through a hard boil', 'Never, only their juice']),
+      mc('Why leave part of a corn chowder unblended?', 'For both creaminess and texture', ['To save time', 'Blending ruins corn', 'Tradition only']),
+      tf('Noodles keep perfectly in leftover soup for days.', false, 'They soak up broth and turn mushy. Cook them separately for meal prep.'),
+    ],
+  },
+  {
+    group: 'day', id: 'snacks', title: 'Snacks and starters', glyph: '🥨', blurb: 'Cheap, quick bites for movie nights and guests.',
+    pantry: [
+      ['Smart snacks', 'Pair fibre or protein with something tasty: chickpeas, edamame, popcorn, nuts, hummus with veg.'],
+      ['Starters for guests', 'Bruschetta, hummus and a bowl of good olives make you look like a host who has it together.'],
+    ],
+    pantryQs: [
+      mc('Which snack is a whole grain?', 'Popcorn', ['Potato chips', 'Pretzels made with white flour', 'Gummy candy']),
+      mc('Edamame are…', 'Young soybeans', ['Green peas', 'Lima beans', 'Japanese pickles']),
+      mc('Best snack for protein?', 'Edamame', ['Rice cakes', 'Apple', 'Popcorn']),
+    ],
+    technique: [
+      ['Dry for crunch', 'Pat chickpeas and vegetables dry before roasting; water makes them steam instead of crisp.'],
+      ['The 3-kernel test', 'Heat oil with 3 popcorn kernels. When they pop, the oil is ready.'],
+      ['Garlic toast', 'Rub a cut garlic clove on hot toast; the rough surface grates it like sandpaper.'],
+    ],
+    techniqueQs: [
+      mc('Why dry chickpeas before roasting?', 'Water makes them steam instead of crisp', ['To remove salt', 'To make them sweeter', 'So they cook faster']),
+      mc('Your popcorn oil is ready when…', 'The 3 test kernels pop', ['It starts smoking', 'It has been on for 10 minutes', 'You hear sizzling']),
+      tf('Bruschetta should be topped hours ahead so the flavours blend.', false, 'Top at the last minute so the toast stays crisp.'),
+    ],
+  },
+  {
+    group: 'day', id: 'desserts', title: 'Desserts and baking', glyph: '🍪', blurb: 'Baking is chemistry. These recipes make it fun.',
+    pantry: [
+      ['The core', 'Flour, sugar, brown sugar, butter, eggs, baking soda, baking powder, vanilla, salt, chocolate.'],
+      ['Baking soda vs powder', 'Baking soda needs an acid (brown sugar, buttermilk, bananas) to react. Baking powder already contains its acid.'],
+      ['Measure carefully', 'Spoon flour into the cup and level it, or better, weigh it. Scooped flour can be 25% too much.'],
+    ],
+    pantryQs: [
+      mc('Baking soda needs what to react?', 'An acid, like buttermilk or brown sugar', ['Only heat', 'Salt', 'Cold water']),
+      mc('Best way to measure flour?', 'Weigh it, or spoon it into the cup and level', ['Scoop and pack it', 'Eyeball it', 'Use a mug']),
+      mc('Why are brown bananas best for banana bread?', 'They are sweeter and more flavourful', ['They are cheaper', 'They have less water', 'They bake faster']),
+      tf('In baking, small measuring mistakes matter more than in a stew.', true),
+    ],
+    technique: [
+      ['Creaming', 'Beating soft butter with sugar traps air for lighter cookies and cakes.'],
+      ['Muffin method', 'Mix wet and dry separately, then combine gently. Overmixing makes it tough.'],
+      ['Cold butter for crumble', 'Rub cold butter into flour so it stays in little pieces that bake crisp.'],
+      ['Gelatin', 'Sprinkle gelatin over cold liquid to bloom, then dissolve it in warm (never boiling) liquid.'],
+    ],
+    techniqueQs: [
+      mc('Cookies spread into thin puddles. Likely cause?', 'The butter was too warm or melted', ['Too much flour', 'The oven was too hot', 'Too few chocolate chips']),
+      mc('When should you take cookies out?', 'Edges golden, centres still look a bit underdone', ['When they look fully done in the oven', 'After 30 minutes', 'When they are dark brown']),
+      mc('What does “blooming” gelatin mean?', 'Letting it soak in cold liquid before dissolving', ['Boiling it', 'Freezing it', 'Mixing it with sugar']),
+      mc('How do you know banana bread is done?', 'A toothpick in the centre comes out clean', ['The top is brown', 'The kitchen smells good', 'After exactly 40 minutes']),
+    ],
+  },
+  {
+    group: 'day', id: 'smoothies', title: 'Smoothies and juices', glyph: '🥤', blurb: 'Blender drinks, fresh juices and fruit waters.',
+    pantry: [
+      ['Freezer stash', 'Frozen berries, mango and banana chunks make thick, cold smoothies without ice.'],
+      ['Liquids', 'Milk or plant milk, Greek yogurt, water and fresh citrus juice.'],
+      ['Whole fruit beats juice', 'Blending keeps the fibre; juice removes most of it, so it is less filling and the sugar hits faster.'],
+    ],
+    pantryQs: [
+      mc('Why use frozen fruit in smoothies?', 'Thick and cold without watering it down', ['It is more nutritious than fresh', 'Fresh fruit will not blend', 'It is sweeter']),
+      mc('Which keeps more fibre?', 'A smoothie (whole fruit blended)', ['Strained juice', 'Soda', 'They are the same']),
+      mc('Agua fresca comes from…', 'Mexico', ['Japan', 'Italy', 'Korea']),
+    ],
+    technique: [
+      ['Blender order', 'Liquid first, then soft ingredients and greens, then frozen fruit and ice.'],
+      ['Simple syrup', 'Sugar dissolved in equal water. It mixes into cold drinks; plain sugar sinks.'],
+      ['Blend and strain', 'No juicer? Blend with a little water and strain through a fine sieve or nut milk bag.'],
+    ],
+    techniqueQs: [
+      order('Load a blender in the right order', ['Milk or other liquid', 'Yogurt and soft fruit', 'Spinach', 'Frozen fruit and ice']),
+      mc('Why make simple syrup for lemonade?', 'Sugar does not dissolve well in cold water', ['It is healthier', 'It keeps lemons fresh', 'It adds colour']),
+      mc('How do you get green smoothies without leafy bits?', 'Blend the greens with the liquid first', ['Add greens last', 'Chop them by hand', 'Use ice only']),
+    ],
+  },
+  {
+    group: 'day', id: 'drinks', title: 'Coffee, tea and cocoa', glyph: '☕', blurb: 'Café drinks at home for a fraction of the price.',
+    pantry: [
+      ['Coffee', 'Grind size matters: coarse for cold brew and French press, medium for drip, fine for espresso.'],
+      ['Tea', 'Black tea is strong and takes milk well. Steeping too long makes it bitter.'],
+      ['Chai spices', 'Cardamom, cinnamon, cloves, ginger and black pepper.'],
+    ],
+    pantryQs: [
+      mc('Which grind for cold brew?', 'Coarse, like breadcrumbs', ['Very fine, like powder', 'Whole beans', 'Medium-fine']),
+      mc('Masala chai spices include…', 'Cardamom, cinnamon, cloves and ginger', ['Cumin and turmeric', 'Oregano and basil', 'Paprika and garlic']),
+      tf('Cold brew is less acidic and bitter than hot coffee.', true),
+    ],
+    technique: [
+      ['Cold extraction', 'Coffee steeped 12–18 hours in cold water, then diluted 1:1.'],
+      ['Simmer spices, steep tea', 'Whole spices need a simmer; tea needs only 2–4 minutes before it turns bitter.'],
+      ['Milk boils over', 'Milk foams up suddenly when it boils. Stay at the stove.'],
+    ],
+    techniqueQs: [
+      num('Hours to steep cold brew, at least?', 12, 'hours', 0),
+      mc('Your chai tastes bitter. Why?', 'The tea steeped too long', ['Too much milk', 'Not enough cinnamon', 'The water was cold']),
+      mc('How do you avoid lumpy hot chocolate?', 'Whisk cocoa and sugar into a paste with a little milk first', ['Add cocoa to boiling milk', 'Use cold milk only', 'Do not stir']),
+    ],
+  },
+  {
+    group: 'day', id: 'cocktails', title: 'Cocktails and mocktails', glyph: '🍸', blurb: 'Four classics, with alcohol-free versions. For adults of legal drinking age (18 in Quebec).',
+    pantry: [
+      ['A starter bar', 'One white spirit (tequila, rum or vodka), one brown (rye or bourbon), triple sec, bitters, limes, lemons, simple syrup, soda water, lots of ice.'],
+      ['Measure', 'A jigger keeps drinks balanced and consistent. 1 oz is about 30 ml.'],
+      ['Drink responsibly', 'A standard drink in Canada has about 13.45 g of alcohol, about 1.5 oz (43 ml) of 40% spirit. Plan a ride home and alternate with water.'],
+    ],
+    pantryQs: [
+      mc('The Caesar was invented in…', 'Calgary, Canada', ['Rome, Italy', 'New York, USA', 'Mexico City']),
+      mc('A margarita is a classic “sour”. Its three parts are…', 'Spirit, citrus, sweet', ['Spirit, cream, egg', 'Wine, soda, fruit', 'Beer, tomato, spice']),
+      mc('About how much is 1 oz?', '30 ml', ['5 ml', '100 ml', '250 ml']),
+      tf('Most of the alcohol in a cocktail “cooks off” in the ice.', false, 'Ice only adds water; the alcohol is all still there.'),
+    ],
+    technique: [
+      ['Shake vs stir', 'Shake drinks with citrus, juice or dairy. Stir drinks that are only spirits (like an old fashioned) to keep them clear and silky.'],
+      ['Muddle gently', 'Press mint lightly to release oils. Shredding it makes it bitter.'],
+      ['Dilution is an ingredient', 'Shaking or stirring with ice adds about 20–25% water, which softens the drink.'],
+    ],
+    techniqueQs: [
+      mc('Shake or stir an old fashioned?', 'Stir', ['Shake hard', 'Blend', 'Neither, just pour']),
+      mc('Shake or stir a margarita?', 'Shake, because it has citrus', ['Stir, because it has tequila', 'Blend only', 'Neither']),
+      mc('How do you muddle mint?', 'Press gently a few times', ['Pound it into paste', 'Chop it finely first', 'Boil it']),
+      match('Match the drink to its spirit', [['Margarita', 'Tequila'], ['Mojito', 'White rum'], ['Caesar', 'Vodka'], ['Old fashioned', 'Rye or bourbon']]),
+    ],
+  },
 ]
+
 
 function order3(): Question {
   return {
@@ -317,6 +491,7 @@ export function buildCuisineBranches(recipes: Recipe[]): Branch[] {
       qs: () => recipeDrill(r, recipes),
     }))
     return {
+      group: c.group ?? 'world',
       id: c.id,
       title: c.title,
       glyph: c.glyph,

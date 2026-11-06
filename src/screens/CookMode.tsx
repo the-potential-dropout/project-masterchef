@@ -5,6 +5,8 @@ import { formatTimer } from '../lib/format'
 import { ingredientLine } from '../lib/groceries'
 import { remaining, useTimers, useWakeLock } from '../lib/timers'
 import { LogForm } from './RecipePage'
+import { Confetti, DishPhoto, TimerRing } from '../components/Art'
+import { Mascot } from '../components/Mascot'
 
 export function CookMode({ recipe: r, go }: { recipe: Recipe; go: (to: string) => void }) {
   useWakeLock()
@@ -32,7 +34,12 @@ export function CookMode({ recipe: r, go }: { recipe: Recipe; go: (to: string) =
   if (finished) {
     return (
       <div className="cook">
+        <Confetti />
         <div className="cook-inner finish">
+          <div className="finish-art">
+            <DishPhoto recipe={r} size="card" />
+            <Mascot size={90} mood="cheer" className="finish-mascot" />
+          </div>
           <p className="cook-count">Done</p>
           <h1 className="cook-text">You cooked {r.title.toLowerCase()}.</h1>
           <p className="cook-tip">Log it while it’s fresh. Your notes show up next time you open the recipe.</p>
@@ -96,7 +103,9 @@ export function CookMode({ recipe: r, go }: { recipe: Recipe; go: (to: string) =
 
         {step.timer && (
           <div className="big-timer">
-            <span className="big-time">{formatTimer(stepTimer ? remaining(stepTimer, now) : step.timer)}</span>
+            <TimerRing frac={stepTimer ? remaining(stepTimer, now) / stepTimer.total : 1}>
+              <span className="big-time">{formatTimer(stepTimer ? remaining(stepTimer, now) : step.timer)}</span>
+            </TimerRing>
             <div className="row">
               {!stepTimer || (!stepTimer.endsAt && !stepTimer.done) ? (
                 <button className="btn yolk big" onClick={() => start(stepTimerId, step.title, step.timer!)}>

@@ -7,6 +7,8 @@ import { recipeFacts } from '../lib/nutrition'
 import { screenRecipe, targets } from '../lib/health'
 import { cuisineName } from '../data'
 import { NutritionPanel } from '../components/NutritionPanel'
+import { DishPhoto } from '../components/Art'
+import { MacroBar } from '../components/Charts'
 
 export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string) => void }) {
   const [state, update] = useStore()
@@ -29,6 +31,7 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
       <a className="back" href={r.cuisine ? '#/recipes' : '#/'}>
         ← {r.cuisine ? 'Recipes' : 'Path'}
       </a>
+      <DishPhoto recipe={r} credit />
       <p className="skill">{r.cuisine ? `${cuisineName(r.cuisine)}: ` : r.milestone ? 'Milestone: ' : `Dish ${r.order}: `}{r.skill}</p>
       <h1>{r.title}</h1>
       <p className="lede">{r.short}</p>
@@ -69,6 +72,7 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
           <h2>Per serving</h2>
           <span className="cost-pill">{money(facts.perServingCost)} a serving</span>
         </div>
+        <MacroBar m={facts.perServing} label="Where the calories come from" />
         <NutritionPanel m={facts.perServing} t={t} />
         <p className="muted small">
           About {money(facts.perServingCost * servings)} for {servings} serving{servings > 1 ? 's' : ''}, counting only what the recipe uses. Estimates from typical values;{' '}

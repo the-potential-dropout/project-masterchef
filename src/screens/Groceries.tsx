@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { getRecipe, coreRecipes } from '../data'
 import { useStore } from '../lib/store'
 import { lineCost, money, tripTotals, addRecipeToGroceries } from '../lib/groceries'
+import { SpendBars } from '../components/Charts'
+import { Mascot } from '../components/Mascot'
 
 const ORDER = ['Produce', 'Meat & eggs', 'Dairy', 'Bakery', 'Frozen', 'Pantry', 'Spices', 'Extras']
 
@@ -66,6 +68,7 @@ export function Groceries({ go }: { go: (to: string) => void }) {
             You buy whole packs, but the recipes use about {money(used)} worth. The rest stays in your pantry for next time.
           </p>
         )}
+        <SpendBars rows={ORDER.map((a) => ({ label: a, value: toBuy.filter((g) => (g.custom ? 'Extras' : g.aisle) === a).reduce((sum, g) => sum + lineCost(g, state.prices).cost, 0) }))} />
         <p className="small">
           <a href="#/prices">Edit ingredient prices</a> to match your store.
         </p>
@@ -73,6 +76,7 @@ export function Groceries({ go }: { go: (to: string) => void }) {
 
       {!items.length ? (
         <section className="empty">
+          <Mascot size={90} mood="think" className="empty-mascot" />
           <p className="lede">Your list is empty. Open a recipe and tap “Add to groceries”. Lines for the same product are merged, and the cost is added up for you.</p>
           <button className="btn yolk" onClick={() => go(`/recipe/${coreRecipes[0].id}`)}>Start with dish 1</button>
         </section>

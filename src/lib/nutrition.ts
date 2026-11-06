@@ -34,6 +34,7 @@ function normUnit(u?: string): string | undefined {
   if (s.startsWith('can')) return 'can'
   if (s === 'pinches') return 'pinch'
   if (s === 'bunches') return 'bunch'
+  if (s === 'dashes') return 'dash'
   if (s.endsWith('s') && !['tbsp', 'lbs'].includes(s)) s = s.slice(0, -1)
   if (s === 'lbs') s = 'lb'
   return s

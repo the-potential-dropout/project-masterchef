@@ -138,7 +138,7 @@ const RX = {
   pork: /pork|guanciale|pancetta|bacon|ham\b|lard/,
   beef: /beef|steak|picanha|ribeye|sirloin|flank/,
   poultry: /chicken|turkey/,
-  alcohol: /wine(?! vinegar)|sake|shaoxing|mirin/,
+  alcohol: /wine(?! vinegar)|sake|shaoxing|mirin|tequila|\brum\b|vodka|whisk|bourbon|\brye\b|triple sec|cointreau|bitters/,
   honey: /honey/,
 }
 
@@ -169,7 +169,7 @@ export function screenRecipe(r: Recipe, per: Macros, p: Profile, t: Targets): Fl
   else if (p.diet === 'vegetarian' && (meat || sea)) flags.push({ level: 'avoid', text: 'Contains meat or fish' })
   else if (p.diet === 'pescatarian' && meat) flags.push({ level: 'avoid', text: 'Contains meat' })
   if (p.halal && c.has('pork')) flags.push({ level: 'avoid', text: 'Contains pork' })
-  if ((p.halal || p.noAlcohol) && c.has('alcohol')) flags.push({ level: 'caution', text: 'Uses wine, sake or mirin' })
+  if ((p.halal || p.noAlcohol) && c.has('alcohol')) flags.push({ level: r.cuisine === 'cocktails' ? 'avoid' : 'caution', text: r.cuisine === 'cocktails' ? 'Contains alcohol (try the mocktail version)' : 'Uses wine, sake or mirin' })
   if (has(p, 'lactose') && c.has('dairy') && !p.allergies.includes('dairy')) flags.push({ level: 'caution', text: 'Contains dairy (aged cheese and butter are low in lactose)' })
   if (has(p, 'pregnant')) {
     if (RUNNY_EGG.has(r.id)) flags.push({ level: 'caution', text: 'Cook eggs until fully set while pregnant' })
