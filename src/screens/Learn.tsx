@@ -109,8 +109,9 @@ export function Learn({ branchId, go }: { branchId?: string; go: (to: string) =>
         <UnitPath key={u.id} unit={u} s={s} go={go} locked={i > 0 && !unitDone(trunk.units[i - 1], s)} />
       ))}
 
-      <BranchGrid title="🌍 World kitchens" list={branches.filter((b) => b.group !== 'day')} s={s} open={open} intro={open ? 'Each branch teaches a cuisine’s pantry, techniques and signature dishes.' : `Finish the first ${BRANCH_UNLOCK_UNITS} Foundations units to unlock these. You can peek inside any time.`} />
-      <BranchGrid title="🕘 Through the day" list={branches.filter((b) => b.group === 'day')} s={s} open={open} intro="Breakfasts, soups, snacks, desserts, smoothies, café drinks and cocktails." />
+      <BranchGrid title="🌍 World kitchens" list={branches.filter((b) => !b.group || b.group === 'world')} s={s} open={open} intro={open ? 'Each branch teaches a cuisine’s pantry, techniques and signature dishes.' : `Finish the first ${BRANCH_UNLOCK_UNITS} Foundations units to unlock these. You can peek inside any time.`} />
+      <BranchGrid title="🕘 Through the day" list={branches.filter((b) => b.group === 'day')} s={s} open={open} intro="Breakfasts, soups, salads, snacks, desserts, smoothies, café drinks and cocktails." />
+      <BranchGrid title="🌿 Eat your way" list={branches.filter((b) => b.group === 'diet')} s={s} open={open} intro="Plant-based and seafood cooking." />
       <p className="ref-link">
         <a href="#/reference">Open the cheat sheets</a>: temperatures, oils, tools, cooking times and food safety.
       </p>

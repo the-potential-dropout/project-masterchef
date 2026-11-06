@@ -23,6 +23,7 @@ const TABS = [
 export default function App() {
   const [route, go] = useHashRoute()
   const [, section, id] = route.split('/')
+  const rest = route.split('/').slice(2).filter(Boolean)
 
   if (section === 'cook' && id) {
     const r = getRecipe(id)
@@ -40,7 +41,7 @@ export default function App() {
     screen = <Learn branchId={id} go={go} />
     tab = 'learn'
   } else if (section === 'recipes') {
-    screen = <Recipes go={go} />
+    screen = <Recipes path={rest} go={go} />
     tab = 'recipes'
   } else if (section === 'groceries') {
     screen = <Groceries go={go} />

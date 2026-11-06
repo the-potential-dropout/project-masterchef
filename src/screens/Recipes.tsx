@@ -1,34 +1,55 @@
 import { useMemo, useState } from 'react'
 import { allRecipes, cuisineName } from '../data'
-import { cuisineSpecs } from '../data/cuisines'
+import type { Recipe } from '../data/types'
 import { recipeFacts } from '../lib/nutrition'
 import { dietOk, screenRecipe, targets } from '../lib/health'
 import { money } from '../lib/groceries'
 import { useStore } from '../lib/store'
 import { formatMinutes } from '../lib/format'
 import { DishPhoto } from '../components/Art'
+import { photoUrl } from '../data/photos'
+import { COURSES, courseOf, recipesIn, resolvePath, tree, type Folder } from '../lib/folders'
 
 type Sort = 'path' | 'cost' | 'protein' | 'kcal' | 'time'
 
-export function Recipes({ go }: { go: (to: string) => void }) {
+function FolderCard({ f, href }: { f: Folder; href: string }) {
+  const list = recipesIn(f)
+  const cover = list.find((r) => photoUrl(r.id))
+  const img = cover ? photoUrl(cover.id, 360) : undefined
+  return (
+    <a href={href} className="folder">
+      <span className="folder-cover" style={img ? { backgroundImage: `url("${img}")` } : undefined}>
+        <span className="folder-glyph" aria-hidden="true">{f.glyph}</span>
+      </span>
+      <span className="folder-text">
+        <strong>{f.title}</strong>
+        <span className="muted small">
+          {f.children ? `${f.children.length} folders, ` : ''}
+          {list.length} recipe{list.length === 1 ? '' : 's'}
+        </span>
+      </span>
+    </a>
+  )
+}
+
+function RecipeList({ recipes, go, showCourses }: { recipes: Recipe[]; go: (to: string) => void; showCourses: boolean }) {
   const [s] = useStore()
-  const [q, setQ] = useState('')
-  const [cuisine, setCuisine] = useState('all')
   const [sort, setSort] = useState<Sort>('path')
   const [fitOnly, setFitOnly] = useState(false)
+  const [course, setCourse] = useState<string>('all')
   const t = s.profile ? targets(s.profile) : null
-
-  const rows = useMemo(() => {
-    return allRecipes.map((r) => {
-      const f = recipeFacts(r, s.prices)
-      const flags = s.profile && t ? screenRecipe(r, f.perServing, s.profile, t) : []
-      return { r, f, flags, ok: s.profile ? dietOk(r, s.profile) : true }
-    })
-  }, [s.prices, s.profile, t])
-
+  const rows = useMemo(
+    () =>
+      recipes.map((r) => {
+        const f = recipeFacts(r, s.prices)
+        const flags = s.profile && t ? screenRecipe(r, f.perServing, s.profile, t) : []
+        return { r, f, flags, ok: s.profile ? dietOk(r, s.profile) : true }
+      }),
+    [recipes, s.prices, s.profile, t],
+  )
+  const coursesHere = COURSES.filter((c) => recipes.some((r) => courseOf(r) === c.id))
   const shown = rows
-    .filter(({ r }) => cuisine === 'all' || (cuisine === 'core' ? !r.cuisine : r.cuisine === cuisine))
-    .filter(({ r }) => !q || `${r.title} ${r.skill} ${r.ingredients.map((i) => i.item).join(' ')}`.toLowerCase().includes(q.toLowerCase()))
+    .filter(({ r }) => course === 'all' || courseOf(r) === course)
     .filter(({ ok }) => !fitOnly || ok)
     .sort((a, b) => {
       if (sort === 'cost') return a.f.perServingCost - b.f.perServingCost
@@ -40,21 +61,18 @@ export function Recipes({ go }: { go: (to: string) => void }) {
 
   return (
     <>
-      <h1 className="page-title">Recipes</h1>
-      <p className="lede">{allRecipes.length} dishes from {cuisineSpecs.length} cuisines, with cost and nutrition per serving.</p>
+      {showCourses && coursesHere.length > 1 && (
+        <div className="chip-row" role="tablist" aria-label="Filter by meal">
+          <button role="tab" aria-selected={course === 'all'} className={course === 'all' ? 'on' : ''} onClick={() => setCourse('all')}>All</button>
+          {coursesHere.map((c) => (
+            <button key={c.id} role="tab" aria-selected={course === c.id} className={course === c.id ? 'on' : ''} onClick={() => setCourse(c.id)}>
+              {c.glyph} {c.title.split(',')[0]}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="filters">
-        <input type="search" placeholder="Search dishes or ingredients" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search recipes" />
         <div className="row">
-          <label className="select">
-            <span className="sr">Cuisine</span>
-            <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
-              <option value="all">All cuisines</option>
-              <option value="core">Core path</option>
-              {cuisineSpecs.map((c) => (
-                <option key={c.id} value={c.id}>{c.title}</option>
-              ))}
-            </select>
-          </label>
           <label className="select">
             <span className="sr">Sort by</span>
             <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
@@ -65,14 +83,13 @@ export function Recipes({ go }: { go: (to: string) => void }) {
               <option value="time">Quickest first</option>
             </select>
           </label>
+          {s.profile && (
+            <label className="check">
+              <input type="checkbox" checked={fitOnly} onChange={(e) => setFitOnly(e.target.checked)} /> Fits my diet
+            </label>
+          )}
         </div>
-        {s.profile && (
-          <label className="check">
-            <input type="checkbox" checked={fitOnly} onChange={(e) => setFitOnly(e.target.checked)} /> Only show dishes that fit my diet and allergies
-          </label>
-        )}
       </div>
-
       <ul className="recipe-list">
         {shown.map(({ r, f, flags, ok }) => (
           <li key={r.id}>
@@ -95,7 +112,90 @@ export function Recipes({ go }: { go: (to: string) => void }) {
           </li>
         ))}
       </ul>
-      {!shown.length && <p className="muted">No dishes match. Try clearing the search or filters.</p>}
+      {!shown.length && <p className="muted">No dishes match these filters.</p>}
+    </>
+  )
+}
+
+export function Recipes({ path, go }: { path: string[]; go: (to: string) => void }) {
+  const [q, setQ] = useState('')
+  const search = q.trim().toLowerCase()
+  const results = search
+    ? allRecipes.filter((r) => `${r.title} ${r.skill} ${cuisineName(r.cuisine)} ${r.ingredients.map((i) => i.item).join(' ')}`.toLowerCase().includes(search))
+    : []
+
+  if (path[0] === 'all') {
+    return (
+      <>
+        <a className="back" href="#/recipes">← Folders</a>
+        <h1 className="page-title">All recipes</h1>
+        <p className="lede">{allRecipes.length} dishes. Use the meal chips to narrow it down.</p>
+        <RecipeList recipes={allRecipes} go={go} showCourses />
+      </>
+    )
+  }
+
+  const trail = resolvePath(path)
+  const folder = trail[trail.length - 1]
+  const base = (n: number) => `#/recipes/${trail.slice(1, n + 1).map((f) => f.id).join('/')}`
+
+  return (
+    <>
+      {trail.length > 1 && (
+        <nav className="crumbs" aria-label="Breadcrumb">
+          {trail.slice(0, -1).map((f, i) => (
+            <span key={f.id}>
+              <a href={i === 0 ? '#/recipes' : base(i)}>{f.title}</a>
+              <span aria-hidden="true"> / </span>
+            </span>
+          ))}
+        </nav>
+      )}
+      <h1 className="page-title">
+        {folder !== tree && <span aria-hidden="true">{folder.glyph} </span>}
+        {folder.title}
+      </h1>
+      {folder.blurb && <p className="lede">{folder.blurb}</p>}
+
+      {folder === tree && (
+        <>
+          <p className="lede">{allRecipes.length} dishes. Open a folder, or search everything.</p>
+          <input className="search-big" type="search" placeholder="Search dishes, cuisines or ingredients" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search all recipes" />
+          {search ? (
+            <>
+              <p className="muted small">{results.length} result{results.length === 1 ? '' : 's'}</p>
+              <RecipeList recipes={results} go={go} showCourses={false} />
+            </>
+          ) : (
+            <>
+              {tree.children!.map((section) => (
+                <section key={section.id} className="folder-section">
+                  <div className="h-row">
+                    <h2>{section.glyph} {section.title}</h2>
+                    <a className="link-btn" href={`#/recipes/${section.id}`}>Open</a>
+                  </div>
+                  {section.blurb && <p className="muted small">{section.blurb}</p>}
+                  <div className="folder-scroll">
+                    {(section.children ?? [section]).map((f) => (
+                      <FolderCard key={f.id} f={f} href={section.children ? `#/recipes/${section.id}/${f.id}` : `#/recipes/${section.id}`} />
+                    ))}
+                  </div>
+                </section>
+              ))}
+              <a className="all-link" href="#/recipes/all">See all {allRecipes.length} recipes in one list</a>
+            </>
+          )}
+        </>
+      )}
+
+      {folder !== tree && folder.children && (
+        <div className="folder-grid">
+          {folder.children.map((f) => (
+            <FolderCard key={f.id} f={f} href={`${base(trail.length - 1)}/${f.id}`} />
+          ))}
+        </div>
+      )}
+      {folder !== tree && folder.filter && <RecipeList recipes={recipesIn(folder)} go={go} showCourses />}
     </>
   )
 }

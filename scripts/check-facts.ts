@@ -2,8 +2,11 @@ import { recipes } from '../src/data/recipes'
 import { world1 } from '../src/data/world1'
 import { world2 } from '../src/data/world2'
 import { world3 } from '../src/data/world3'
+import { world4 } from '../src/data/world4'
+import { world5 } from '../src/data/world5'
+import { world6 } from '../src/data/world6'
 import { recipeFacts, resolvedLines } from '../src/lib/nutrition'
-const all = [...recipes, ...world1, ...world2, ...world3]
+const all = [...recipes, ...world1, ...world2, ...world3, ...world4, ...world5, ...world6]
 let bad = 0
 for (const r of all) {
   const f = recipeFacts(r)

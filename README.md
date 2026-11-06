@@ -29,15 +29,16 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 
 ### 🦉 Learn (Duolingo, but the owl is a chicken thigh)
 - **Kitchen Foundations course:** knives, pans and stove settings, oils and fats (smoke points, health pros and cons), measuring, meat temperatures and times, food safety, seasoning, nutrition basics. 
-- **11 world cuisine branches:** Italian, Chinese, Mexican, Indian, Japanese, Arabic/Levantine, West African, American, Brazilian churrasco, Thai and Korean. Each one teaches the pantry, the key techniques and three signature dishes.
-- **128 lessons** of multiple choice, put-the-steps-in-order, matching and "type the temperature" questions. Recipe-memory lessons are generated fresh from the recipe data every time, so you can't just memorise that the answer is B.
+- **14 world cuisine branches:** Italian, French, Greek, Chinese, Japanese, Korean, Thai, Vietnamese, Indian, Arabic/Levantine, West African, Mexican, American and Brazilian churrasco. Each one teaches the pantry, the key techniques and a stack of signature dishes (Italian alone has ten, because nonna said so).
+- **Eat-your-way branches:** plant-based classics and seafood classics, for vegans, vegetarians, pescatarians and people who just discovered tofu can be crispy.
+- **194 lessons** of multiple choice, put-the-steps-in-order, matching and "type the temperature" questions. Recipe-memory lessons are generated fresh from the recipe data every time, so you can't just memorise that the answer is B.
 - Get it wrong and it comes back at the end, like an ex who "just wants to talk."
 - XP, a daily goal and a streak, so you feel guilty in a healthy, motivating way.
 - **Cheat sheets** for temperatures, cooking times, oils, tools, conversions and food safety.
 
 ### 🍳 Cook
 - **The Path:** the six starter dishes in order, with progress dots so you can watch yourself become a functional adult in real time.
-- **70 recipes**, each with what it teaches, troubleshooting ("if it goes wrong", because it will) and variations.
+- **124 recipes**, each with what it teaches, troubleshooting ("if it goes wrong", because it will) and variations.
 - **Cook mode:** one step at a time, in letters big enough to read while holding raw chicken. Keeps your screen awake, and runs **stacking timers** so the rice keeps counting while you chop.
 - **Cook log:** rate each attempt and leave notes for future you ("NEEDED SALT. ALWAYS NEEDS SALT.").
 
@@ -54,7 +55,11 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 - General info, not medical advice. Your doctor outranks this app. So does your pharmacist. Honestly, so does your mom.
 
 ### 🍹 Through the day
-- **Breakfast**, **soups, bisques and chowders**, **snacks**, **desserts and baking**, **smoothies and juices**, **coffee, tea and cocoa**, and **cocktails** (with mocktail versions), each with its own Learn branch. 70 recipes in total.
+- **Breakfast**, **salads** (real ones, not sad desk lettuce), **soups, bisques and chowders**, **snacks**, **desserts and baking**, **smoothies and juices**, **coffee, tea and cocoa**, and **cocktails** (with mocktail versions), each with its own Learn branch.
+
+### 🗂️ Recipe folders
+- 124 recipes is a lot of scrolling, so they live in **folders**: World cuisines → region → country, By meal (drinks split into smoothies, café and cocktails), and By diet and goal (vegan, vegetarian, pescatarian, gluten-free, high protein, under $2.50 a serving, 30 minutes or less).
+- Or search everything at once, like a raccoon going through a fridge.
 
 ### 🎨 Pretty things
 - **Real dish photos** from Wikimedia Commons, credited on a Credits page (thank you, photographers).

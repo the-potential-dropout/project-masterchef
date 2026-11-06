@@ -4,7 +4,7 @@ import { recipeDrill } from '../lib/generate'
 
 interface CuisineSpec {
   /** 'world' cuisines vs 'day' branches (breakfast, soups, drinks...) */
-  group?: 'world' | 'day'
+  group?: 'world' | 'day' | 'diet'
   id: string
   title: string
   glyph: string
@@ -465,6 +465,152 @@ export const cuisineSpecs: CuisineSpec[] = [
       match('Match the drink to its spirit', [['Margarita', 'Tequila'], ['Mojito', 'White rum'], ['Caesar', 'Vodka'], ['Old fashioned', 'Rye or bourbon']]),
     ],
   },
+  // ───────────── new world branches ─────────────
+  {
+    id: 'french', title: 'French', glyph: '🥖', blurb: 'Butter, wine, herbs and the techniques every chef learns first.',
+    pantry: [
+      ['The core', 'Butter, shallots, garlic, Dijon mustard, dry white and red wine, fresh thyme and parsley, crème fraîche, gruyère, good bread.'],
+      ['Herbes de Provence', 'A dried blend from the south (thyme, rosemary, savory, marjoram, sometimes lavender) for stews and roasts.'],
+      ['Regions', 'Butter and cream in the north (Normandy, Burgundy); olive oil, tomatoes and herbs in Provence.'],
+    ],
+    pantryQs: [
+      mc('Which onion is classic in French sauces?', 'Shallot', ['Red onion', 'Green onion', 'Leek only']),
+      mc('Ratatouille comes from…', 'Provence', ['Normandy', 'Brittany', 'Alsace']),
+      mc('Gruyère is a…', 'Nutty, melting Swiss-French cheese', ['Soft blue cheese', 'Goat cheese', 'Cream cheese']),
+      mc('Quiche lorraine traditionally contains…', 'Bacon, eggs and cream', ['Spinach and feta', 'Tomato and basil', 'Salmon and dill']),
+    ],
+    technique: [
+      ['Mise en place', 'French for “everything in its place”: prep all ingredients before you turn on the heat.'],
+      ['Braising', 'Sear, deglaze with wine, then cook slowly covered in the oven, as in bœuf bourguignon.'],
+      ['Blind baking', 'Pre-bake a pastry crust with weights so it stays crisp under a wet filling.'],
+      ['Mother sauces', 'Béchamel (milk), velouté (stock), espagnole (brown stock), hollandaise (butter and egg) and tomato.'],
+    ],
+    techniqueQs: [
+      mc('What does mise en place mean?', 'Everything prepped and in its place before cooking', ['A type of sauce', 'Plating food nicely', 'Cooking in the oven']),
+      mc('Why blind-bake a quiche crust?', 'So the bottom stays crisp under the custard', ['To make it sweeter', 'To save time', 'So it rises']),
+      mc('Which is a French mother sauce?', 'Béchamel', ['Pesto', 'Salsa verde', 'Teriyaki']),
+      tf('Mussels that stay open when tapped before cooking should be thrown away.', true, 'They are dead and unsafe to eat.'),
+    ],
+  },
+  {
+    id: 'greek', title: 'Greek', glyph: '🫒', blurb: 'Olive oil, lemon, oregano, feta and sunshine.',
+    pantry: [
+      ['The core', 'Extra-virgin olive oil, lemons, dried oregano, feta, Greek yogurt, garlic, dill, kalamata olives, phyllo, orzo, beans.'],
+      ['Ladera', 'Vegetables and beans slowly cooked in lots of olive oil and tomato, like gigantes plaki. Many are naturally vegan.'],
+      ['Meze', 'Small plates to share: tzatziki, spanakopita, olives, grilled octopus, dolmades.'],
+    ],
+    pantryQs: [
+      mc('A true horiatiki (village salad) has no…', 'Lettuce', ['Tomatoes', 'Feta', 'Olive oil']),
+      mc('Tzatziki is made with…', 'Yogurt, cucumber, garlic and herbs', ['Tahini and chickpeas', 'Avocado and lime', 'Cream cheese and chives']),
+      mc('Phyllo is…', 'Paper-thin pastry sheets', ['A cheese', 'A type of olive', 'A spice blend']),
+      mc('Avgolemono means…', 'Egg-lemon', ['Lamb stew', 'Bean soup', 'Spinach pie']),
+    ],
+    technique: [
+      ['Tempering', 'Slowly whisk hot broth into eggs so they thicken a soup instead of scrambling.'],
+      ['Squeeze the water out', 'Grated cucumber for tzatziki and cooked spinach for spanakopita must be squeezed dry.'],
+      ['Phyllo care', 'Keep sheets under a damp towel and brush every layer with oil or butter.'],
+    ],
+    techniqueQs: [
+      mc('Why temper eggs for avgolemono?', 'So they thicken the soup without scrambling', ['To cook them faster', 'To make them fluffy', 'To remove the yolk']),
+      mc('How do you stop phyllo from cracking?', 'Keep it covered with a damp towel', ['Freeze it', 'Microwave it', 'Wet each sheet with water']),
+      mc('Why squeeze the cucumber for tzatziki?', 'To keep it thick, not watery', ['To remove bitterness only', 'To make it greener', 'Tradition only']),
+    ],
+  },
+  {
+    id: 'vietnamese', title: 'Vietnamese', glyph: '🍜', blurb: 'Fresh herbs, bright broths and the perfect sweet-sour-salty sauce.',
+    pantry: [
+      ['The core', 'Fish sauce, rice noodles and vermicelli, rice paper, limes, sugar, lemongrass, garlic, shallots, chilies, hoisin.'],
+      ['Herbs, herbs, herbs', 'Mint, Thai basil, cilantro and perilla are served by the handful, not as garnish.'],
+      ['Nước chấm', 'Fish sauce, lime, sugar, water, garlic and chili: the dipping sauce for nearly everything.'],
+    ],
+    pantryQs: [
+      mc('Nước chấm balances…', 'Salty, sour, sweet and spicy', ['Only salty', 'Creamy and smoky', 'Bitter and sweet']),
+      mc('Bánh mì bread shows which influence?', 'French', ['Japanese', 'Indian', 'American']),
+      mc('Pho broth gets its aroma from…', 'Charred onion and ginger plus star anise and cinnamon', ['Curry paste', 'Tomato paste', 'Soy sauce alone']),
+      tf('In Vietnamese food, fresh herbs are often eaten by the handful.', true),
+    ],
+    technique: [
+      ['Char the aromatics', 'Blacken onion and ginger before simmering for a sweet, smoky broth.'],
+      ['Quick pickles', 'Carrot and daikon in vinegar, sugar and salt for 20 minutes: đồ chua.'],
+      ['Rice paper', 'Dip for about 5 seconds; it keeps softening as you fill it.'],
+    ],
+    techniqueQs: [
+      mc('How long do you dip rice paper?', 'About 5 seconds', ['1 minute', 'Until fully floppy', 'You do not dip it']),
+      mc('What are đồ chua?', 'Quick pickled carrot and daikon', ['Fried shallots', 'Rice noodles', 'Fish sauce']),
+      mc('Why char onion and ginger for pho?', 'For a deeper, sweeter, smoky broth', ['To peel them easily', 'To kill bacteria', 'To make it spicy']),
+    ],
+  },
+  {
+    group: 'day', id: 'salads', title: 'Salads', glyph: '🥗', blurb: 'From side salads to salads that are dinner.',
+    pantry: [
+      ['A great salad formula', 'Greens or crunchy veg + protein + something creamy + something crunchy + a bright dressing.'],
+      ['Dressings', 'Vinaigrette is 3 parts oil to 1 part acid with mustard to bind; creamy dressings use mayo, yogurt or tahini.'],
+      ['Sturdy vs tender', 'Kale, cabbage, chickpeas and cucumbers last for days; tender lettuces should be dressed right before eating.'],
+    ],
+    pantryQs: [
+      mc('Classic vinaigrette ratio?', '3 parts oil to 1 part acid', ['1 to 1', '1 part oil to 3 acid', 'All vinegar']),
+      mc('What holds a vinaigrette together?', 'Mustard (an emulsifier)', ['Sugar', 'Water', 'Pepper']),
+      mc('Which salad keeps best for lunches all week?', 'Chickpea salad', ['Dressed butter lettuce', 'Caesar with croutons', 'Caprese']),
+      tf('Wet lettuce waters down the dressing and makes salads soggy.', true),
+    ],
+    technique: [
+      ['Dry your greens', 'Use a salad spinner or towel; dressing will not cling to wet leaves.'],
+      ['Massage kale', 'Rub kale with salt and acid for a minute to soften it.'],
+      ['Season tomatoes last', 'Salt draws out their juice, so add it right before serving.'],
+    ],
+    techniqueQs: [
+      mc('How do you soften raw kale?', 'Massage it with a little salt and acid', ['Freeze it', 'Boil it 10 minutes', 'Soak it in water']),
+      mc('When should you dress a tender green salad?', 'Right before serving', ['The night before', 'An hour before', 'It does not matter']),
+      mc('A Cobb salad is a good dinner because…', 'It has plenty of protein and healthy fat', ['It is low in everything', 'It has no vegetables', 'It is mostly bread']),
+    ],
+  },
+  {
+    group: 'diet', id: 'plants', title: 'Plant-based', glyph: '🌿', blurb: 'Vegan and vegetarian cooking that actually fills you up.',
+    pantry: [
+      ['Plant proteins', 'Lentils, chickpeas, beans, tofu, tempeh, edamame, quinoa, nuts, seeds and nutritional yeast.'],
+      ['Umami without meat', 'Soy sauce, miso, mushrooms, tomato paste, nutritional yeast and roasted vegetables build savoury depth.'],
+      ['Nutrients to watch', 'Vegans need B12 from fortified foods or a supplement. Pair plant iron with vitamin C. Get omega-3 from flax, chia, walnuts or algae oil.'],
+    ],
+    pantryQs: [
+      mc('Which vitamin must vegans get from fortified foods or supplements?', 'B12', ['Vitamin C', 'Vitamin A', 'Vitamin K']),
+      mc('What does nutritional yeast add?', 'A savoury, cheesy flavour plus B vitamins and protein', ['Sweetness', 'It makes bread rise', 'Sourness']),
+      mc('Pairing lentils with tomatoes or lemon helps you absorb more…', 'Iron', ['Calcium', 'Fat', 'Sodium']),
+      mc('Which is a complete plant protein?', 'Tofu', ['Rice', 'Carrots', 'Apples']),
+    ],
+    technique: [
+      ['Press tofu', 'Wrap and weigh down firm tofu for 15 minutes so it browns instead of steaming.'],
+      ['Flax egg', '1 tbsp ground flax + 3 tbsp water, rested 5 minutes, binds like one egg in burgers and baking.'],
+      ['Dry beans for patties', 'Bake rinsed beans 15 minutes to dry them so burgers hold together.'],
+    ],
+    techniqueQs: [
+      mc('What replaces one egg in vegan baking or burgers?', '1 tbsp ground flax + 3 tbsp water', ['A cup of milk', '1 tbsp sugar', '2 tbsp oil']),
+      mc('Why press tofu before frying?', 'Removing water helps it brown and crisp', ['To make it softer', 'To add protein', 'To cook it']),
+      tf('Lentils can replace ground meat in shepherd’s pie or ragù.', true),
+    ],
+  },
+  {
+    group: 'diet', id: 'seafood', title: 'Seafood', glyph: '🐟', blurb: 'Pescatarian cooking: fish and shellfish made easy.',
+    pantry: [
+      ['Easy fish to start', 'Salmon (forgiving and rich), cod or haddock (mild, flaky), shrimp (fast), canned tuna and sardines (cheap and handy).'],
+      ['Health', 'Canada’s Food Guide encourages fish regularly; fatty fish like salmon, trout and sardines are rich in omega-3s.'],
+      ['Mercury', 'Limit high-mercury fish like fresh or frozen tuna steaks, shark, swordfish and marlin, especially when pregnant.'],
+    ],
+    pantryQs: [
+      mc('Which fish is richest in omega-3s?', 'Salmon', ['Cod', 'Tilapia', 'Haddock']),
+      mc('Which fish should you limit because of mercury?', 'Swordfish', ['Salmon', 'Sardines', 'Trout']),
+      mc('Fresh fish should smell…', 'Like clean sea water, not fishy', ['Strongly fishy', 'Like ammonia', 'Sweet']),
+    ],
+    technique: [
+      ['Pat it dry', 'Dry fish browns and does not stick.'],
+      ['Leave it alone', 'Fish releases from the pan once a crust forms; flip once.'],
+      ['Doneness', 'Fish is done when it turns opaque and flakes easily. Shrimp curl into a C; an O means overcooked.'],
+    ],
+    techniqueQs: [
+      mc('When is white fish done?', 'Opaque and flakes easily with a fork', ['When it is still translucent', 'After exactly 20 minutes', 'When it curls']),
+      mc('Fish is sticking to the pan. What should you do?', 'Wait until it releases on its own', ['Scrape it hard', 'Add water', 'Flip it immediately']),
+      num('Official safe internal temperature for fish, in °F?', 145, '°F'),
+    ],
+  },
 ]
 
 
@@ -474,6 +620,12 @@ function order3(): Question {
     q: 'Indian curry base: put the steps in order',
     items: ['Whole spices in hot oil', 'Onions until golden', 'Ginger and garlic', 'Ground spices', 'Tomatoes until the oil separates'],
   }
+}
+
+function chunk<T>(a: T[], n: number): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < a.length; i += n) out.push(a.slice(i, i + n))
+  return out
 }
 
 export function buildCuisineBranches(recipes: Recipe[]): Branch[] {
@@ -504,7 +656,13 @@ export function buildCuisineBranches(recipes: Recipe[]): Branch[] {
             { id: `${c.id}-technique`, title: 'Key techniques', teach: c.technique, qs: c.techniqueQs },
           ],
         },
-        { id: `${c.id}-dishes`, title: 'Signature dishes', glyph: '🍽️', blurb: `Learn, memorise and cook ${dishes.length} classics.`, lessons: dishLessons },
+        ...chunk(dishLessons, 4).map((lessons, k, all) => ({
+          id: `${c.id}-dishes${k ? `-${k + 1}` : ''}`,
+          title: all.length > 1 ? `Signature dishes ${['I', 'II', 'III', 'IV'][k]}` : 'Signature dishes',
+          glyph: '🍽️',
+          blurb: `Learn, memorise and cook ${lessons.length} classics.`,
+          lessons,
+        })),
       ],
     }
   })
