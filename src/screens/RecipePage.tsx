@@ -4,11 +4,14 @@ import { timesCooked, useStore } from '../lib/store'
 import { formatMinutes, formatQty, formatTimer } from '../lib/format'
 import { ingredientLine, addRecipeToGroceries, removeRecipeFromGroceries, money } from '../lib/groceries'
 import { recipeFacts } from '../lib/nutrition'
-import { screenRecipe, targets } from '../lib/health'
+import { portionFor, screenRecipe, targets } from '../lib/health'
 import { cuisineName } from '../data'
 import { NutritionPanel } from '../components/NutritionPanel'
 import { DishPhoto } from '../components/Art'
 import { MacroBar } from '../components/Charts'
+import { courseOf } from '../lib/folders'
+
+const courseOfMain = (r: Recipe) => ['main', 'soup', 'salad', 'breakfast'].includes(courseOf(r))
 
 export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string) => void }) {
   const [state, update] = useStore()
@@ -74,6 +77,14 @@ export function RecipePage({ recipe: r, go }: { recipe: Recipe; go: (to: string)
         </div>
         <MacroBar m={facts.perServing} label="Where the calories come from" />
         <NutritionPanel m={facts.perServing} t={t} />
+        {t && courseOfMain(r) && (() => {
+          const pf = portionFor(facts.perServing.kcal, t)
+          return (
+            <p className="portion-tip">
+              <strong>Your portion:</strong> about {pf.x} serving{pf.x === 1 ? '' : 's'} ({Math.round(facts.perServing.kcal * pf.x)} kcal), sized for your height, weight and goal so one meal is about {pf.meal} kcal.
+            </p>
+          )
+        })()}
         <p className="muted small">
           About {money(facts.perServingCost * servings)} for {servings} serving{servings > 1 ? 's' : ''}, counting only what the recipe uses. Estimates from typical values;{' '}
           <a href="#/prices">edit prices</a>.

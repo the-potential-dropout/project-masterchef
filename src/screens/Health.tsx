@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { allRecipes, getRecipe } from '../data'
 import { quickFoods } from '../data/quickFoods'
 import {
-  ACTIVITY, ALLERGENS, CONDITIONS, GOALS, bmi, defaultProfile, dietOk, screenRecipe, supplements, targets,
+  ACTIVITY, ALLERGENS, CONDITIONS, GOALS, bmi, bodyFor, defaultProfile, dietOk, screenRecipe, supplements, targets,
   type Activity, type Diet, type FishFreq, type Goal, type Profile, type Sex, type Targets,
 } from '../lib/health'
 import { addMacros, recipeFacts, zeroMacros, type Macros } from '../lib/nutrition'
@@ -170,8 +170,36 @@ function TargetCard({ t, p }: { t: Targets; p: Profile }) {
       <p className="muted small">
         Your body burns about {t.bmr.toLocaleString()} kcal at rest and {t.tdee.toLocaleString()} with your activity (Mifflin-St Jeor equation). BMI {b.toFixed(1)}, which is a rough screening number only. Water: about {t.waterL} L a day from all drinks and food.
       </p>
+      <BodyCard p={p} />
       {t.notes.map((n) => <p key={n} className="notice">{n}</p>)}
     </section>
+  )
+}
+
+function BodyCard({ p }: { p: Profile }) {
+  const body = bodyFor(p)
+  // scale runs BMI 15–35; the green band is the healthy range for your height
+  const pos = (v: number) => `${Math.min(100, Math.max(0, ((v - 15) / 20) * 100))}%`
+  const kg = (v: number) => Math.round(v)
+  const lb = (v: number) => Math.round(v * 2.2046)
+  const ft = Math.floor(p.heightCm / 2.54 / 12)
+  const inch = Math.round(p.heightCm / 2.54 - ft * 12)
+  const words = { under: 'below the range', in: 'inside the range', over: 'a little above the range', 'well-over': 'above the range' }[body.band]
+  return (
+    <div className="body-card">
+      <h3>Built for your height</h3>
+      <p className="small">
+        At {Math.round(p.heightCm)} cm ({ft}′{inch}″), a healthy weight range is about <strong>{kg(body.lo)}–{kg(body.hi)} kg</strong> ({lb(body.lo)}–{lb(body.hi)} lb). You are {words}.
+      </p>
+      <div className="bmi-scale" role="img" aria-label={`BMI ${body.bmi.toFixed(1)}; healthy range 18.5 to 24.9`}>
+        <span className="bmi-band" style={{ left: pos(18.5), width: `calc(${pos(24.9)} - ${pos(18.5)})` }} />
+        <span className="bmi-dot" style={{ left: pos(body.bmi) }} />
+      </div>
+      <div className="bmi-legend small muted"><span>{kg(15 * (p.heightCm / 100) ** 2)} kg</span><span>you: {kg(p.weightKg)} kg</span><span>{kg(35 * (p.heightCm / 100) ** 2)} kg</span></div>
+      <p className="muted small">
+        Height sets your resting burn, your protein reference weight ({kg(body.refWeight)} kg) and your portion sizes on every recipe. BMI ignores muscle, so a lifter can sit "above" and be perfectly healthy.
+      </p>
+    </div>
   )
 }
 

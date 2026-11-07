@@ -71,10 +71,28 @@ export interface Targets {
   notes: string[]
 }
 
+/** How many recipe servings make one main meal for you (about 30% of your daily calories). */
+export function portionFor(perServingKcal: number, t: Targets) {
+  const meal = t.kcal * 0.3
+  const raw = meal / Math.max(perServingKcal, 1)
+  const x = Math.min(3, Math.max(0.5, Math.round(raw * 4) / 4))
+  return { meal: Math.round(meal), x }
+}
+
 const has = (p: Profile, c: string) => p.conditions.includes(c)
 
 export function bmi(p: Profile) {
   return p.weightKg / (p.heightCm / 100) ** 2
+}
+
+/** Height-based numbers: the weight range a BMI of 18.5–24.9 maps to at this height, and where you sit. */
+export function bodyFor(p: Profile) {
+  const m2 = (p.heightCm / 100) ** 2
+  const b = p.weightKg / m2
+  const lo = 18.5 * m2
+  const hi = 24.9 * m2
+  const band = b < 18.5 ? 'under' : b < 25 ? 'in' : b < 30 ? 'over' : 'well-over'
+  return { bmi: b, lo, hi, mid: 22 * m2, band, refWeight: b > 30 ? 27 * m2 : b < 18.5 ? lo : p.weightKg } as const
 }
 
 export function targets(p: Profile): Targets {
@@ -87,6 +105,17 @@ export function targets(p: Profile): Targets {
     goal = 'maintain'
     notes.push('During pregnancy or breastfeeding, the app does not set a weight-change target. Your care provider will guide calorie needs (they rise by roughly 350–450 kcal a day later in pregnancy).')
   }
+  const body = bodyFor(p)
+  if (goal === 'lose' && body.band === 'under') {
+    goal = 'maintain'
+    notes.push(`At your height (${Math.round(p.heightCm)} cm), ${Math.round(p.weightKg)} kg is under the usual healthy range of ${Math.round(body.lo)}–${Math.round(body.hi)} kg, so the app will not set a weight-loss target. Talk to a doctor if you are losing weight without trying.`)
+  } else if (goal === 'lose' && body.bmi < 20) {
+    notes.push(`You are already near the low end of the healthy range for your height (${Math.round(body.lo)}–${Math.round(body.hi)} kg). "Build muscle, stay lean" may suit you better than a deficit.`)
+  } else if (goal === 'gain' && body.bmi >= 27) {
+    notes.push(`For your height you are above the usual range (${Math.round(body.lo)}–${Math.round(body.hi)} kg). If the aim is muscle, "Build muscle, stay lean" builds it without adding much fat.`)
+  } else if (goal === 'maintain' && body.band === 'under') {
+    notes.push(`For your height, a healthy range is about ${Math.round(body.lo)}–${Math.round(body.hi)} kg. Consider "Build muscle and size" to move toward it gently.`)
+  }
   let kcal = tdee
   if (goal === 'lose') kcal = tdee - Math.min(500, tdee * 0.2)
   if (goal === 'gain') kcal = tdee + Math.min(300, tdee * 0.1)
@@ -98,7 +127,9 @@ export function targets(p: Profile): Targets {
   kcal = Math.round(kcal / 10) * 10
 
   // protein: g per kg, using a capped reference weight for higher BMIs
-  const refWeight = bmi(p) > 30 ? 27 * (p.heightCm / 100) ** 2 : p.weightKg
+  // protein is set from a height-based reference weight when weight is outside the healthy range for your height
+  const refWeight = body.refWeight
+  if (body.band === 'well-over') notes.push(`Protein is based on a reference weight for your height (${Math.round(refWeight)} kg), not your total weight, so the target stays realistic.`)
   const active = ['moderate', 'very', 'athlete'].includes(p.activity)
   let gPerKg = { lose: 1.8, maintain: active ? 1.4 : 1.2, recomp: 2.0, gain: 1.8 }[goal]
   if (has(p, 'kidney')) {
@@ -119,8 +150,12 @@ export function targets(p: Profile): Targets {
   const sodium = has(p, 'hypertension') ? 2000 : 2300
   if (has(p, 'hypertension')) notes.push('Sodium is capped at 2,000 mg a day, as Hypertension Canada recommends. Cooking at home is the best way to hit it.')
   if (has(p, 'celiac')) notes.push('Celiac needs strict gluten avoidance, including soy sauce (use tamari), most gochujang and doubanjiang, and cross-contact from shared toasters and boards.')
+  // fat floor: at least ~0.6 g per kg of height-based reference weight for hormones and vitamin absorption
+  const fatFloor = Math.round(0.6 * refWeight)
+  const fatFinal = Math.max(fat, fatFloor)
+  carbs = Math.max(100, Math.round((kcal - protein * 4 - fatFinal * 9) / 4))
   const waterL = p.sex === 'male' ? 3.7 : p.sex === 'female' ? 2.7 : 3.2
-  return { bmr: Math.round(bmr), tdee: Math.round(tdee), kcal, protein, carbs, fat, satFat, fiber, sodium, waterL, notes }
+  return { bmr: Math.round(bmr), tdee: Math.round(tdee), kcal, protein, carbs, fat: fatFinal, satFat, fiber, sodium, waterL, notes }
 }
 
 // ── recipe screening ──

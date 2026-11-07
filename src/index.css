@@ -2597,3 +2597,13 @@ input[type='number'],
   text-decoration: none;
   color: var(--basil);
 }
+
+/* v5: height-aware body card */
+.body-card { margin-top: 1rem; padding: 1rem; border-radius: 16px; background: rgba(255,255,255,.09); color: inherit; }
+.body-card .muted { color: inherit; opacity: .78; }
+.body-card h3 { margin: 0 0 .4rem; }
+.bmi-scale { position: relative; height: 12px; border-radius: 99px; background: rgba(255,255,255,.18); margin: .9rem 0 .35rem; }
+.bmi-band { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: #8fd19e; }
+.bmi-dot { position: absolute; top: 50%; width: 20px; height: 20px; border-radius: 50%; background: #f2b230; border: 3px solid #fff; transform: translate(-50%, -50%); transition: left .4s ease; }
+.bmi-legend { display: flex; justify-content: space-between; gap: .5rem; }
+.portion-tip { margin: .75rem 0 0; padding: .7rem .9rem; border-radius: 12px; background: color-mix(in srgb, #f2b230 16%, transparent); font-size: .95rem; }

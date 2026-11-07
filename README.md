@@ -50,6 +50,7 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 ### 🥦 Health
 - A profile (age, sex, height, weight, activity, goal, diet, allergies, conditions) sets daily **calorie, protein, carb, fat, fibre, saturated fat and sodium targets** (Mifflin-St Jeor, plus sensible goal-based macros).
 - Every recipe gets **macros per serving** and **warnings**: allergens, vegan/vegetarian/halal conflicts, high sodium for blood pressure, saturated fat for cholesterol, carb-heavy meals for diabetes, runny eggs during pregnancy, and more.
+- **Built for your height:** your height sets your resting burn, the healthy weight range for your frame, a sanity check on your goal (no weight-loss plan if you're already slim for your height), your protein reference weight, and a **"your portion"** line on every meal ("about 1.25 servings") so a 6′4″ person and a 5′2″ person don't eat the same plate.
 - **Day builder:** stack meals and snacks, see how the day adds up, and get suggestions for filling protein or fibre gaps.
 - **Supplements and vitamins** tailored to your profile (vitamin D in Canadian winters, B12 for vegans, folic acid, omega-3 and so on), each with "food first", amounts and cautions.
 - General info, not medical advice. Your doctor outranks this app. So does your pharmacist. Honestly, so does your mom.
