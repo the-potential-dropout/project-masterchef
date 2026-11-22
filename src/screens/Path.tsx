@@ -105,6 +105,10 @@ export function Path({ go }: { go: (to: string) => void }) {
         <span>Italian, Chinese, Mexican, Indian, Japanese, Levantine, West African, American, Brazilian, Thai and Korean branches, 33 more dishes.</span>
         <span className="glyph-row" aria-hidden="true">🍝🥢🌮🍛🍱🧆🍲🍔🔥🌶️🥬</span>
       </a>
+      <a className="world-teaser" href="#/textbook">
+        <strong>📖 Read the textbook</strong>
+        <span>Start with healthy survival dishes, then work up through technique and every cuisine on earth.</span>
+      </a>
     </>
   )
 }

@@ -2,6 +2,8 @@
 
 > *A cooking app for people whose signature dish is "cereal, but I put the milk in first."*
 
+**▶ Open the app in your browser: https://the-potential-dropout.github.io/project-masterchef/** (installable on your phone, works offline)
+
 Hi. I'm 24, I have a fully functional kitchen, and until now its main job was storing takeout menus and one sad lemon. This app is my rehabilitation program.
 
 **The goal:** go from "is the smoke alarm part of the recipe?" to hosting friends for a dinner they actually enjoy, *on purpose*.
@@ -35,6 +37,13 @@ Six starter dishes, then the whole world. Each one secretly teaches a technique,
 - Get it wrong and it comes back at the end, like an ex who "just wants to talk."
 - XP, a daily goal and a streak, so you feel guilty in a healthy, motivating way.
 - **Cheat sheets** for temperatures, cooking times, oils, tools, conversions and food safety.
+
+### 📖 The Masterchef textbook
+- A full textbook inside the app (Learn → **The Masterchef textbook**, or `#/textbook`), about 49 chapters.
+- **Part 1 is survival:** what your body needs, a survival pantry, two dozen cheap healthy dishes, a batch-cook week plan and the food-safety rules that keep you out of hospital.
+- Then foundations, the six-dish path, **mother techniques** (stocks, sauces, braising, frying, doughs, grains and beans, fermenting) and a **world atlas** of every major cuisine on earth: flavour base, pantry, techniques, dishes to master from easiest to hardest, health notes and the ingredients that are dangerous if done wrong.
+- Ends with **Becoming a Masterchef:** palate training, menus and timing, plating, mystery-box and pressure-test drills, and inventing your own dishes.
+- Recipe cards in every chapter show live cost, calories, protein, fibre and sodium, each chapter links to its Learn branch, and you can tick chapters off as you read.
 
 ### 🍳 Cook
 - **The Path:** the six starter dishes in order, with progress dots so you can watch yourself become a functional adult in real time.
@@ -79,10 +88,10 @@ Your progress is saved on your device. No account, no sign-up, no "enter your em
 npm install
 npm run dev      # cook locally
 npm run build    # plate it for production
-npm run check    # make sure every ingredient has a price and every quiz question makes sense
+npm run check    # every ingredient has a price, every quiz question makes sense, every textbook link resolves
 ```
 
-It deploys to GitHub Pages automatically on every push to `main` (see `.github/workflows/deploy.yml`). The first time, go to **Settings → Pages** and set the source to **GitHub Actions**.
+It deploys automatically on every push to `main` (see `.github/workflows/deploy.yml`): the workflow runs the checks, builds the app and publishes it to the `gh-pages` branch, which GitHub Pages serves at https://the-potential-dropout.github.io/project-masterchef/. If the site ever shows a 404, check **Settings → Pages** is set to **Deploy from a branch → `gh-pages` / root**.
 
 ## Built with
 

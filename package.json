@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "check": "tsx scripts/check-facts.ts && tsx scripts/check-lessons.ts"
+    "check": "tsx scripts/check-facts.ts && tsx scripts/check-lessons.ts && tsx scripts/check-textbook.ts"
   },
   "dependencies": {
     "react": "^19.3.1",

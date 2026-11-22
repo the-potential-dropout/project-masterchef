@@ -11,6 +11,7 @@ import { LessonPlayer } from './screens/LessonPlayer'
 import { Recipes } from './screens/Recipes'
 import { Health } from './screens/Health'
 import { Credits } from './screens/Credits'
+import { Textbook } from './screens/Textbook'
 
 const TABS = [
   { id: 'home', href: '#/', label: 'Home', icon: <path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8Z" /> },
@@ -52,6 +53,9 @@ export default function App() {
   } else if (section === 'health') {
     screen = <Health go={go} />
     tab = 'health'
+  } else if (section === 'textbook') {
+    screen = <Textbook chapterId={id} />
+    tab = 'learn'
   } else if (section === 'credits') {
     screen = <Credits />
     tab = 'learn'
