@@ -35,7 +35,7 @@ export function Reference() {
 
       {tab === 'Temperatures' && (
         <>
-          <p className="muted">Safe minimum internal temperatures follow Health Canada and USDA guidance. Use an instant-read thermometer in the thickest part.</p>
+          <p className="muted">Safe minimum internal temperatures follow USDA guidance; where Health Canada's figure is higher, the card says so. Use an instant-read thermometer in the thickest part.</p>
           <ul className="ref-cards">
             {doneness.map((d) => (
               <li key={d.food}>

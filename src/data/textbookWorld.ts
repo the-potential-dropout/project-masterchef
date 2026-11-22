@@ -533,7 +533,7 @@ const chapters: Chapter[] = [
         pantry: ['maple syrup', 'wild rice', 'cheese curds', 'salmon', 'bannock ingredients', 'peameal bacon'],
         techniques: ['tourtière pastry', 'smoking and planking fish', 'bannock (quick pan bread)'],
         dishes: ['Bannock', 'Pea soup', 'Poutine', 'Cedar-plank salmon', 'Tourtière', 'Butter tarts, maple taffy on snow'],
-        watch: ['Fiddleheads must be cooked: boil 15 minutes or steam 12, and discard the water.'],
+        watch: ['Fiddleheads must be cooked: boil 15 minutes or steam 10–12, and discard the water.'],
       },
     ],
   }),

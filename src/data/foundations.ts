@@ -198,13 +198,13 @@ export const foundations: Unit[] = [
         teach: [
           ['Poultry: 165°F (74°C)', 'Chicken and turkey, whole or ground.'],
           ['Ground beef and pork: 160°F (71°C)', 'Grinding spreads surface bacteria through the meat.'],
-          ['Whole cuts of beef, pork, lamb, fish: 145°F (63°C)', 'Health Canada and USDA guidance, with a 3-minute rest for meats.'],
+          ['Whole cuts of beef, pork, lamb, fish: 145°F (63°C)', 'USDA guidance, with a 3-minute rest for meats. Health Canada is higher for pork (160°F / 71°C) and fish (158°F / 70°C).'],
           ['Use a thermometer', 'Thickest part, not touching bone. Colour and juices are not reliable.'],
         ],
         qs: [
           num('Safe internal temperature for chicken, in °F?', 165, '°F'),
           num('Safe internal temperature for ground beef, in °F?', 160, '°F'),
-          mc('Official minimum for a pork chop?', '145°F (63°C) with a 3-minute rest', ['165°F (74°C)', '120°F (49°C)', '180°F (82°C)']),
+          mc('USDA minimum for a pork chop?', '145°F (63°C) with a 3-minute rest', ['165°F (74°C)', '120°F (49°C)', '180°F (82°C)']),
           tf('You can tell chicken is done by the colour of the juices.', false, 'Only a thermometer is reliable.'),
           mc('Where do you put the thermometer?', 'The thickest part, not touching bone', ['Right next to the bone', 'Just under the skin', 'In the pan juices']),
           mc('Why cook ground beef further than a steak?', 'Grinding mixes surface bacteria inside', ['It is fattier', 'It is cheaper', 'It is always older']),
@@ -215,7 +215,7 @@ export const foundations: Unit[] = [
         teach: [
           ['Tender cuts, fast and hot', 'Steaks, chops, chicken breast, fish: sear, grill or roast quickly.'],
           ['Tough cuts, low and slow', 'Chuck, short ribs, pork shoulder: braise or slow-roast until about 200°F inside, when collagen melts.'],
-          ['Fish', 'Done when it flakes easily. Salmon is often served at 125–130°F by cooks, but 145°F is the official guidance.'],
+          ['Fish', 'Done when it flakes easily. Salmon is often served at 125–130°F by cooks, but 145°F is the USDA guidance (Health Canada: 158°F / 70°C).'],
         ],
         qs: [
           mc('Best way to cook beef chuck?', 'Braise it low and slow for hours', ['Sear it 2 minutes per side', 'Microwave it', 'Serve it rare']),

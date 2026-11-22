@@ -105,7 +105,7 @@ export function Learn({ branchId, go }: { branchId?: string; go: (to: string) =>
 
       <a className="world-teaser tb-teaser" href="#/textbook">
         <strong>📖 The Masterchef textbook</strong>
-        <span className="muted small">The long read: healthy survival cooking first, then foundations, mother techniques and every cuisine on earth.</span>
+        <span className="muted small">An animated, 135-page book: healthy survival cooking first, then technique and every cuisine on earth. Slides, scrolling textbook or map.</span>
       </a>
 
       <h2 className="section-h">{trunk.glyph} {trunk.title}</h2>

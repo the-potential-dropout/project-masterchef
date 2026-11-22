@@ -2612,106 +2612,21 @@ input[type='number'],
 .tb-teaser {
   margin: 1.25rem 0 0.5rem;
 }
-.tb-progress {
-  display: grid;
-  gap: 0.35rem;
-  margin: 1rem 0;
-}
-.tb-part {
-  margin-top: 1.5rem;
-}
-.tb-toc {
-  list-style: none;
-  padding: 0;
-  margin: 0.75rem 0 0;
-  display: grid;
-  gap: 0.5rem;
-}
-.tb-toc a {
+.tb-frame {
+  position: fixed;
+  inset: 0;
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.8rem 1rem;
-  background: var(--card);
-  border: 1.5px solid var(--line);
-  border-radius: 14px;
-  color: var(--ink);
-  text-decoration: none;
+  flex-direction: column;
+  background: var(--chalk);
 }
-.tb-toc li.read a {
-  border-color: var(--basil);
+.tb-back {
+  display: block;
+  padding: 0.6rem 1rem;
+  margin: 0;
+  border-bottom: 1px solid var(--line);
 }
-.tb-glyph {
-  font-size: 1.5rem;
-  flex: none;
-}
-.tb-toc-body {
-  display: grid;
-  gap: 0.15rem;
+.tb-frame iframe {
   flex: 1;
-}
-.tb-tick {
-  color: var(--basil);
-  font-weight: 700;
-}
-.tb-chapter p {
-  margin: 0.75rem 0;
-}
-.tb-h {
-  font: 700 1.3rem var(--display);
-  margin: 1.75rem 0 0.5rem;
-}
-.tb-list,
-.tb-steps {
-  padding-left: 1.3rem;
-  display: grid;
-  gap: 0.4rem;
-  margin: 0.5rem 0;
-}
-.tb-table {
-  margin: 0.75rem 0;
-}
-.tb-recipes {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
-}
-.tb-recipes a {
-  display: grid;
-  gap: 0.2rem;
-  padding: 0.75rem 1rem;
-  border-radius: 14px;
-  background: var(--basil-soft);
-  color: var(--ink);
-  text-decoration: none;
-}
-.tb-recipes strong {
-  color: var(--basil);
-}
-.tb-facts {
-  color: var(--steel);
-}
-.tb-mastery {
-  margin: 2rem 0 1rem;
-  padding: 1rem 1.2rem;
-  border: 1.5px dashed var(--basil);
-  border-radius: var(--radius-l);
-}
-.tb-mastery h2 {
-  font: 700 1.15rem var(--display);
-  margin-bottom: 0.4rem;
-}
-.tb-mastery ul {
-  padding-left: 1.2rem;
-  display: grid;
-  gap: 0.3rem;
-}
-.tb-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 1.5rem 0 1rem;
-  font-size: 0.95rem;
+  width: 100%;
+  border: 0;
 }

@@ -31,6 +31,7 @@ export default function App() {
     if (r) return <CookMode recipe={r} go={go} />
   }
   if (section === 'lesson' && id) return <LessonPlayer id={id} go={go} />
+  if (section === 'textbook') return <Textbook />
 
   let screen
   let tab = 'home'
@@ -53,9 +54,6 @@ export default function App() {
   } else if (section === 'health') {
     screen = <Health go={go} />
     tab = 'health'
-  } else if (section === 'textbook') {
-    screen = <Textbook chapterId={id} />
-    tab = 'learn'
   } else if (section === 'credits') {
     screen = <Credits />
     tab = 'learn'

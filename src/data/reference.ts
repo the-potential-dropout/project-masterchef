@@ -1,5 +1,5 @@
 /**
- * Cheat-sheet tables. Safe minimum temperatures follow Health Canada / USDA guidance;
+ * Cheat-sheet tables. Safe minimum temperatures follow USDA guidance, with Health Canada's figure noted where it is higher;
  * "best" temps are common cook's preferences and are labelled as such.
  */
 
@@ -18,20 +18,20 @@ export interface Doneness {
 export const doneness: Doneness[] = [
   { food: 'Chicken breast (boneless)', method: 'Roast or pan-sear', heat: '425°F (220°C) oven, or medium-high pan', time: '18–22 min in the oven', tool: 'Sheet pan or skillet + thermometer', f: 165, c: 74, note: 'Lean, so it dries out fast. Pull right at 165°F.' },
   { food: 'Chicken thighs', method: 'Roast, grill or braise', heat: '425°F (220°C) oven', time: '20–25 min boneless, 35–45 min bone-in', tool: 'Sheet pan + thermometer', f: 165, c: 74, note: 'Safe at 165°F, but most tender at 175–185°F.' },
-  { food: 'Whole chicken', method: 'Roast', heat: '425°F (220°C) oven', time: 'About 17–20 min per lb', tool: 'Roasting pan + thermometer', f: 165, c: 74, note: 'Check the thickest part of the thigh; many cooks pull the breast at 160°F and let it rise.' },
+  { food: 'Whole chicken', method: 'Roast', heat: '425°F (220°C) oven', time: 'About 17–20 min per lb', tool: 'Roasting pan + thermometer', f: 165, c: 74, note: 'Check the thickest part of the thigh; many cooks pull the breast at 160°F and let it rise. Health Canada says 180°F (82°C) for a whole bird.' },
   { food: 'Ground chicken or turkey', method: 'Pan-fry', heat: 'Medium-high', time: '6–8 min', tool: 'Skillet', f: 165, c: 74, note: 'Grinding spreads bacteria through the meat, so cook all the way.' },
   { food: 'Ground beef or pork', method: 'Pan-fry or burgers', heat: 'Medium-high to high', time: '6–10 min', tool: 'Skillet or cast iron', f: 160, c: 71, note: 'No pink, juices clear.' },
-  { food: 'Beef steak (1 inch)', method: 'Sear', heat: 'High, cast iron preheated 5 min', time: '3–4 min per side', tool: 'Cast iron + thermometer', f: 145, c: 63, note: 'Health Canada and USDA: 145°F (63°C) plus a 3-min rest. Cooks often pull at 130°F for medium-rare.' },
+  { food: 'Beef steak (1 inch)', method: 'Sear', heat: 'High, cast iron preheated 5 min', time: '3–4 min per side', tool: 'Cast iron + thermometer', f: 145, c: 63, note: 'USDA: 145°F (63°C) plus a 3-min rest; Health Canada: 63°C (145°F) for medium-rare. Cooks often pull at 130°F for medium-rare.' },
   { food: 'Beef roast', method: 'Roast', heat: 'Sear hot, then 325°F (165°C)', time: 'About 15–20 min per lb', tool: 'Roasting pan + probe thermometer', f: 145, c: 63, note: 'Rest 15 min; it rises 5–10°F while resting.' },
   { food: 'Beef chuck or short ribs', method: 'Braise', heat: '300–325°F (150–165°C), covered', time: '2½–3½ hours', tool: 'Dutch oven', f: 200, c: 93, note: 'Tough cuts need long, slow, wet cooking until fork-tender (195–205°F).' },
-  { food: 'Pork chops (1 inch)', method: 'Pan-sear', heat: 'Medium-high', time: '4–5 min per side', tool: 'Skillet + thermometer', f: 145, c: 63, note: '145°F with a 3-min rest. A little pink is fine.' },
-  { food: 'Pork tenderloin', method: 'Roast', heat: '425°F (220°C)', time: '20–25 min', tool: 'Sheet pan or skillet', f: 145, c: 63, note: 'Sear first for colour.' },
+  { food: 'Pork chops (1 inch)', method: 'Pan-sear', heat: 'Medium-high', time: '4–5 min per side', tool: 'Skillet + thermometer', f: 145, c: 63, note: '145°F with a 3-min rest. A little pink is fine. Health Canada says 160°F (71°C) for pork.' },
+  { food: 'Pork tenderloin', method: 'Roast', heat: '425°F (220°C)', time: '20–25 min', tool: 'Sheet pan or skillet', f: 145, c: 63, note: 'Sear first for colour. Health Canada says 160°F (71°C) for pork.' },
   { food: 'Pork shoulder (pulled)', method: 'Slow-roast', heat: '300°F (150°C)', time: 'About 1 hr per lb', tool: 'Dutch oven or roasting pan', f: 200, c: 93, note: 'Shreds easily at 195–205°F.' },
   { food: 'Lamb chops', method: 'Sear or grill', heat: 'High', time: '3–4 min per side', tool: 'Cast iron or grill', f: 145, c: 63, note: 'Same guidance as beef steaks.' },
-  { food: 'Salmon fillet', method: 'Roast or pan-sear', heat: '400°F (200°C) oven', time: '12–15 min', tool: 'Sheet pan or non-stick skillet', f: 145, c: 63, note: 'Official guidance is 145°F; many cooks prefer 125–130°F for silky salmon.' },
-  { food: 'White fish (cod, haddock)', method: 'Bake or pan-fry', heat: '400°F (200°C)', time: '10–12 min', tool: 'Sheet pan or non-stick skillet', f: 145, c: 63, note: 'Done when it flakes easily with a fork.' },
+  { food: 'Salmon fillet', method: 'Roast or pan-sear', heat: '400°F (200°C) oven', time: '12–15 min', tool: 'Sheet pan or non-stick skillet', f: 145, c: 63, note: 'Official guidance is 145°F; many cooks prefer 125–130°F for silky salmon. Health Canada says 158°F (70°C) for fish.' },
+  { food: 'White fish (cod, haddock)', method: 'Bake or pan-fry', heat: '400°F (200°C)', time: '10–12 min', tool: 'Sheet pan or non-stick skillet', f: 145, c: 63, note: 'Done when it flakes easily with a fork. Health Canada says 158°F (70°C) for fish.' },
   { food: 'Shrimp', method: 'Sauté or boil', heat: 'Medium-high', time: '2–3 min', tool: 'Skillet', f: 145, c: 63, note: 'Pink and opaque, curled into a C. An O shape means overcooked.' },
-  { food: 'Egg dishes (frittata, quiche)', method: 'Bake', heat: '350°F (175°C)', time: '20–30 min', tool: 'Oven-safe skillet or dish', f: 160, c: 71, note: 'Centre should be just set.' },
+  { food: 'Egg dishes (frittata, quiche)', method: 'Bake', heat: '350°F (175°C)', time: '20–30 min', tool: 'Oven-safe skillet or dish', f: 160, c: 71, note: 'Centre should be just set. Health Canada says 165°F (74°C) for egg dishes.' },
   { food: 'Leftovers', method: 'Reheat', heat: 'Microwave or oven', time: 'Until steaming', tool: 'Thermometer', f: 165, c: 74, note: 'Reheat once, to 165°F, and stir in the microwave.' },
 ]
 
