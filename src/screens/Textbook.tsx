@@ -6,7 +6,7 @@ export function Textbook() {
   return (
     <div className="tb-frame">
       <a className="back tb-back" href="#/learn">← Back to the app</a>
-      <iframe src="./textbook/index.html" title="Masterchef, the textbook" />
+      <iframe src="./textbook/index.html" title="Masterchef, the textbook" allow="autoplay; screen-wake-lock" />
     </div>
   )
 }
