@@ -10,7 +10,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "check": "tsx scripts/check-facts.ts && tsx scripts/check-lessons.ts && tsx scripts/check-textbook.ts",
-    "textbook": "tsx scripts/textbook/dump.ts /tmp/masterchef-textbook.json && python3 scripts/textbook/build.py /tmp/masterchef-textbook.json public/textbook/index.html"
+    "textbook": "tsx scripts/textbook/dump.ts /tmp/masterchef-textbook.json && python3 scripts/textbook/build.py /tmp/masterchef-textbook.json public/textbook/index.html && python3 scripts/textbook/tts.py public/textbook/index.html"
   },
   "dependencies": {
     "react": "^19.3.1",
